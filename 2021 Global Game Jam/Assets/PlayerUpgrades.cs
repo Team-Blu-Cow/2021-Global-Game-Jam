@@ -18,60 +18,35 @@ public class PlayerUpgrades : MonoBehaviour
     }
 
     [Header("Player Upgrades")]
-    public int torchRange = 0;
-    public int torchDuraion = 0;
-    public int sonarRange = 0;
-    public int sonarSpeed = 0;
-    public int hullDuribilty = 0;
-    public int hullHealth = 0;
-    public int moveSpdMod = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool[] upgrades = new bool[7];
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject collisionGameObj = collision.gameObject;
-        if (collisionGameObj.tag.Equals("Treasure"))
+        if (collisionGameObj.CompareTag("Treasure"))
         {
             switch (collisionGameObj.GetComponent<TreasureControl>().reward)
             {
                 case Upgrades.torchRange:
-                    if (torchRange < 10)
-                        torchRange++;
+                    upgrades[(int)Upgrades.torchRange] = true;
                     break;
                 case Upgrades.torchDuraion:
-                    if (torchDuraion < 10)
-                        torchDuraion++;
+                    upgrades[(int)Upgrades.torchDuraion] = true;
                     break;
                 case Upgrades.sonarRange:
-                    if (sonarRange < 10)
-                        sonarRange++;
+                    upgrades[(int)Upgrades.sonarRange] = true;
                     break;
                 case Upgrades.sonarSpeed:
-                    if (sonarSpeed < 10)
-                        sonarSpeed++;
+                    upgrades[(int)Upgrades.sonarSpeed] = true;
                     break;
                 case Upgrades.hullDuribilty:
-                    if (hullDuribilty < 10)
-                        hullDuribilty++;
+                    upgrades[(int)Upgrades.hullDuribilty] = true;
                     break;
                 case Upgrades.hullHealth:
-                    if (hullHealth < 10)
-                        hullHealth++;
+                    upgrades[(int)Upgrades.hullHealth] = true;
                     break;
                 case Upgrades.moveSpdMod:
-                    if (moveSpdMod < 10)
-                        moveSpdMod++;
+                    upgrades[(int)Upgrades.moveSpdMod] = true;
                     break;
                 default:
                     break;

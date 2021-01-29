@@ -6,19 +6,19 @@ using UnityEngine;
 public class UpgradeImage : MonoBehaviour
 {
     public GameObject player;
-    PlayerUpgrades playerUpgrades;
-    
+    public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchRange;
+
     // Start is called before the first frame update
     void Start()
     {
-        playerUpgrades = player.GetComponent<PlayerUpgrades>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RectTransform imageTransform = GetComponent<RectTransform>();
-        
-        imageTransform.position.Set(0,10,0);
+        if (player.GetComponent<PlayerUpgrades>().upgrades[(int)reward])
+            gameObject.GetComponent<Image>().color = new Color(0,0,0,0.4f);
+        else
+            gameObject.GetComponent<Image>().color = Color.clear;
     }
 }
