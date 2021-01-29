@@ -1,0 +1,191 @@
+// GENERATED AUTOMATICALLY FROM 'Assets/MiniMap/TestPlayerControls.inputactions'
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
+
+public class @TestPlayerControls : IInputActionCollection, IDisposable
+{
+    public InputActionAsset asset { get; }
+    public @TestPlayerControls()
+    {
+        asset = InputActionAsset.FromJson(@"{
+    ""name"": ""TestPlayerControls"",
+    ""maps"": [
+        {
+            ""name"": ""testplayercontrols"",
+            ""id"": ""9634e6d3-e4ac-4716-826d-517180257195"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""a8b11695-b5f0-4bf9-9693-9ef0e21bafdf"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""ac4bf07b-b721-46b1-9dd2-b4a6d719926d"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""54ecffca-3c6c-48d9-8ad1-9ad2c0ca8b5e"",
+                    ""path"": ""<Keyboard>/#(W)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ee2d8d31-a315-427e-bfdb-9013a5183196"",
+                    ""path"": ""<Keyboard>/#(S)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4a35f3a4-46a5-42ed-b365-e505b90144c4"",
+                    ""path"": ""<Keyboard>/#(A)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""d065719a-bc79-4dca-9095-d7cc8be812ca"",
+                    ""path"": ""<Keyboard>/#(D)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        }
+    ],
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": []
+        }
+    ]
+}");
+        // testplayercontrols
+        m_testplayercontrols = asset.FindActionMap("testplayercontrols", throwIfNotFound: true);
+        m_testplayercontrols_Move = m_testplayercontrols.FindAction("Move", throwIfNotFound: true);
+    }
+
+    public void Dispose()
+    {
+        UnityEngine.Object.Destroy(asset);
+    }
+
+    public InputBinding? bindingMask
+    {
+        get => asset.bindingMask;
+        set => asset.bindingMask = value;
+    }
+
+    public ReadOnlyArray<InputDevice>? devices
+    {
+        get => asset.devices;
+        set => asset.devices = value;
+    }
+
+    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+    public bool Contains(InputAction action)
+    {
+        return asset.Contains(action);
+    }
+
+    public IEnumerator<InputAction> GetEnumerator()
+    {
+        return asset.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public void Enable()
+    {
+        asset.Enable();
+    }
+
+    public void Disable()
+    {
+        asset.Disable();
+    }
+
+    // testplayercontrols
+    private readonly InputActionMap m_testplayercontrols;
+    private ITestplayercontrolsActions m_TestplayercontrolsActionsCallbackInterface;
+    private readonly InputAction m_testplayercontrols_Move;
+    public struct TestplayercontrolsActions
+    {
+        private @TestPlayerControls m_Wrapper;
+        public TestplayercontrolsActions(@TestPlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_testplayercontrols_Move;
+        public InputActionMap Get() { return m_Wrapper.m_testplayercontrols; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestplayercontrolsActions set) { return set.Get(); }
+        public void SetCallbacks(ITestplayercontrolsActions instance)
+        {
+            if (m_Wrapper.m_TestplayercontrolsActionsCallbackInterface != null)
+            {
+                @Move.started -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMove;
+            }
+            m_Wrapper.m_TestplayercontrolsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+            }
+        }
+    }
+    public TestplayercontrolsActions @testplayercontrols => new TestplayercontrolsActions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    public interface ITestplayercontrolsActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+    }
+}
