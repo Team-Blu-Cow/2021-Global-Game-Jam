@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 namespace minimap
 {
     public class TestPlayerMovementController : MonoBehaviour
+
     {
         [Header("Movement Settings")]
         [SerializeField] float moveSpeed = 5f;
