@@ -5,7 +5,6 @@ using Pathfinding;
 
 public class MonsterPathfinderControlScript : MonoBehaviour
 {
-
     public GameObject player;
     private Transform playerTransform;
 
@@ -24,8 +23,8 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     private int foliage_trigger_count = 0;
     private int safezone_trigger_count = 0;
 
-    Path path;
-    int currentWaypoint = 0;
+    private Path path;
+    private int currentWaypoint = 0;
 
     public GameObject Monster;
     private Seeker monsterSeeker;
@@ -33,31 +32,31 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     private Vector3 monsterPosition;
     private Vector3 investigatePosition = new Vector3();
 
-    Vector3 target_position = new Vector3();
+    private Vector3 target_position = new Vector3();
 
-    System.Random rnd = new System.Random();
+    private System.Random rnd = new System.Random();
     public List<PathfindingNode> nodeList;
 
     private Vector3 RailsOnCompleteteleportPos;
     private bool doRailsTeleport = false;
 
-    float calcDetectionRange(float modifier = 1f)
+    private float calcDetectionRange(float modifier = 1f)
     {
         float noise = player.GetComponent<Rigidbody2D>().velocity.magnitude;
         noise = noise * noise_multiplier;
         noise = noise - noise_bias;
 
-        if(noise < 0)
+        if (noise < 0)
         {
             noise = 0;
         }
-        else if(noise > max_noise)
+        else if (noise > max_noise)
         {
             noise = max_noise;
         }
 
         float foliage_modifier = 1f;
-        if(InFoliage())
+        if (InFoliage())
         {
             foliage_modifier = 0.3f;
         }
@@ -76,9 +75,9 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         on_rails // for monster being on rails
     }
 
-    AIstate state = AIstate.sleeping;
+    private AIstate state = AIstate.sleeping;
 
-    void Start()
+    private void Start()
     {
         playerTransform = player.GetComponent<Transform>();
         monsterSeeker = Monster.GetComponent<Seeker>();
@@ -87,9 +86,9 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
-        if(state != AIstate.sleeping)
+        if (state != AIstate.sleeping)
         {
             if (monsterSeeker.IsDone())
             {
@@ -103,22 +102,21 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         // graphics here
     }
 
-    bool atEndOfPath()
+    private bool atEndOfPath()
     {
         return currentWaypoint >= path.vectorPath.Count;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (path == null)
             return;
 
-        if(!atEndOfPath())
+        if (!atEndOfPath())
         {
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - monsterRB.position).normalized;
             Vector2 force = direction * speed * Time.deltaTime;
             monsterRB.AddForce(force);
-
 
             float distance = Vector2.Distance(monsterRB.position, path.vectorPath[currentWaypoint]);
             if (distance < nextWaypointDistance)
@@ -134,27 +132,32 @@ public class MonsterPathfinderControlScript : MonoBehaviour
             case AIstate.patrol:
                 PatrolUpdate();
                 break;
+
             case AIstate.hunting:
                 HuntUpdate();
                 break;
+
             case AIstate.investigate:
                 InvestigateUpdate();
                 break;
+
             case AIstate.on_rails:
                 OnRailsUpdate();
                 break;
+
             case AIstate.sleeping:
                 SleepingUpdate();
                 break;
+
             default:
                 state = AIstate.patrol;
                 break;
         }
     }
 
-    void PatrolUpdate()
+    private void PatrolUpdate()
     {
-        if(atEndOfPath())
+        if (atEndOfPath())
         {
             if (nodeList.Count > 0)
             {
@@ -166,28 +169,32 @@ public class MonsterPathfinderControlScript : MonoBehaviour
                 target_position = new Vector3();
             }
         }
-        
 
-        if(CheckPlayerInRange(calcDetectionRange()) && !InSafezone())
+        Monster.GetComponent<SoundPlayer>().Stop(2);
+        if (CheckPlayerInRange(calcDetectionRange()) && !InSafezone())
         {
             state = AIstate.hunting;
+            Monster.GetComponent<SoundPlayer>().Play(1);
+            Monster.GetComponent<SoundPlayer>().Play(2);
         }
     }
 
-    void HuntUpdate()
+    private void HuntUpdate()
     {
         target_position = playerTransform.position;
         if (!CheckPlayerInRange(calcDetectionRange(loseDetectionMosifier)))
         {
+            Monster.GetComponent<SoundPlayer>().Stop(2);
             state = AIstate.patrol;
         }
-        if(InSafezone())
+        if (InSafezone())
         {
+            Monster.GetComponent<SoundPlayer>().Stop(2);
             state = AIstate.patrol;
         }
     }
 
-    void InvestigateUpdate()
+    private void InvestigateUpdate()
     {
         target_position = investigatePosition;
         if (CheckPlayerInRange(calcDetectionRange()))
@@ -198,14 +205,14 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     public void InitOnRails(GameObject RailsStartPoint, GameObject RailsEndPoint, GameObject RailsTeleportPoint = null)
     {
-        if(RailsStartPoint && RailsEndPoint)
+        if (RailsStartPoint && RailsEndPoint)
         {
             speed = railsSpeed;
             state = AIstate.on_rails;
             Monster.GetComponent<Transform>().position = RailsStartPoint.GetComponent<Transform>().position;
             target_position = RailsEndPoint.GetComponent<Transform>().position;
 
-            if(RailsTeleportPoint)
+            if (RailsTeleportPoint)
             {
                 RailsOnCompleteteleportPos = RailsTeleportPoint.GetComponent<Transform>().position;
                 doRailsTeleport = true;
@@ -217,7 +224,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         }
     }
 
-    void OnRailsUpdate()
+    private void OnRailsUpdate()
     {
         if (atEndOfPath())
         {
@@ -236,17 +243,16 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         currentWaypoint = int.MaxValue;
     }
 
-
-    void SleepingUpdate()
+    private void SleepingUpdate()
     {
         Monster.GetComponent<Transform>().position = new Vector3(1000, 1000, 0);
     }
 
-    bool CheckPlayerInRange(float range)
+    private bool CheckPlayerInRange(float range)
     {
         float distance = Vector2.Distance(playerTransform.position, monsterPosition);
 
-        if(distance < range)
+        if (distance < range)
         {
             return true;
         }
@@ -256,30 +262,30 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         }
     }
 
-    void OnPathComplete(Path p)
+    private void OnPathComplete(Path p)
     {
-        if(!p.error)
+        if (!p.error)
         {
             path = p;
             currentWaypoint = 0;
         }
     }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(monsterPosition, calcDetectionRange());
         Gizmos.DrawWireSphere(monsterPosition, calcDetectionRange(loseDetectionMosifier));
     }
 
-    bool InFoliage()
+    private bool InFoliage()
     {
-        if(foliage_trigger_count > 0)
+        if (foliage_trigger_count > 0)
             return true;
         else
             return false;
     }
 
-    bool InSafezone()
+    private bool InSafezone()
     {
         if (safezone_trigger_count > 0)
             return true;
@@ -300,13 +306,23 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         return;
     }
 
-    public void inc_foliage_count() { foliage_trigger_count++; }
-    public void dec_foliage_count() { foliage_trigger_count--; }
+    public void inc_foliage_count()
+    {
+        foliage_trigger_count++;
+    }
 
+    public void dec_foliage_count()
+    {
+        foliage_trigger_count--;
+    }
 
-    public void inc_safezone_count() { safezone_trigger_count++; }
-    public void dec_safezone_count() { safezone_trigger_count--; }
+    public void inc_safezone_count()
+    {
+        safezone_trigger_count++;
+    }
 
-
-
+    public void dec_safezone_count()
+    {
+        safezone_trigger_count--;
+    }
 }
