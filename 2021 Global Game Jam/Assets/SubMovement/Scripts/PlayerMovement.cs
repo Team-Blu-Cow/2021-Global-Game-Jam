@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private float moveSpeed = 30.0f;
-    public float hullHealth = 100.0f;
 
     public Rigidbody2D rb;
 
