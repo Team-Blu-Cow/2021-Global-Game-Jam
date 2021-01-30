@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 movement;
     Vector2 drag;
-    float rotation;
 
     bool clawMode = false;
 
@@ -42,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         if (clawMode == false)
         {          
             rb.AddForce((movement * moveSpeed * Time.fixedDeltaTime) + drag);
-            rb.SetRotation(rotation);
         }
         else 
         {
