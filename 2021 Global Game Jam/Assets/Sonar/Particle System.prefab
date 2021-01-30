@@ -42,7 +42,7 @@ ParticleSystem:
   m_GameObject: {fileID: 7614882667528049652}
   serializedVersion: 7
   lengthInSec: 2
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4783,7 +4783,7 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 1
+  m_MaxParticleSize: 50
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -4817,3 +4817,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938823398b7ebbd429cc1eecf3e5fd94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aliveTime: 0.8
