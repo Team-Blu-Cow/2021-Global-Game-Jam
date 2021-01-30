@@ -3,47 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TestPlayerMovementController : MonoBehaviour
+namespace minimap
 {
-    [Header("Movement Settings")]
-    [SerializeField] float moveSpeed = 5f;
+    public class TestPlayerMovementController : MonoBehaviour
 
-    private TestPlayerControls controls;
-    Vector2 moveDirection;
-
-    void Awake()
     {
-        controls = new TestPlayerControls();
-        controls.testplayercontrols.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
-        controls.testplayercontrols.Move.canceled += ctx => OnStopMove();
-    }
+        [Header("Movement Settings")]
+        [SerializeField] float moveSpeed = 5f;
 
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
+        private TestPlayerControls controls;
+        Vector2 moveDirection;
 
-    private void OnDisable()
-    {
-        controls.Disable();
-    }
+        void Awake()
+        {
+            controls = new TestPlayerControls();
+            controls.testplayercontrols.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
+            controls.testplayercontrols.Move.canceled += ctx => OnStopMove();
+        }
+        private void OnEnable()
+        {
+            controls.Enable();
+        }
 
-    void Update()
-    {
-        Vector3 movement = new Vector3(0, 0, 0);
+        private void OnDisable()
+        {
+            controls.Disable();
+        }
 
-        movement = new Vector3(moveDirection.x, moveDirection.y, 0);
+        void Update()
+        {
+            Vector3 movement = new Vector3(0, 0, 0);
 
-        transform.position += movement * Time.deltaTime * moveSpeed;
-    }
+            movement = new Vector3(moveDirection.x, moveDirection.y, 0);
 
-    void OnMove(Vector2 direction)
-    {
-        moveDirection = direction;
-    }
+            transform.position += movement * Time.deltaTime * moveSpeed;
+        }
 
-    void OnStopMove()
-    {
-        moveDirection = new Vector2(0, 0);
+        void OnMove(Vector2 direction)
+        {
+            moveDirection = direction;
+        }
+
+        void OnStopMove()
+        {
+            moveDirection = new Vector2(0, 0);
+        }
     }
 }
+

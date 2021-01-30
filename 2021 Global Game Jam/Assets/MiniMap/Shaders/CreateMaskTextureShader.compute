@@ -1,0 +1,32 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+RWTexture2D<float4> Result;
+
+Texture2D<float4> BaseTexture;
+Texture2D<float4> zone1Texture;
+Texture2D<float4> zone2Texture;
+Texture2D<float4> zone3Texture;
+Texture2D<float4> zone4Texture;
+
+bool zone1Flag;
+bool zone2Flag;
+bool zone3Flag;
+bool zone4Flag;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	float4 final_colour = BaseTexture[id.xy];
+	
+	if (zone1Flag == true)
+		final_colour += zone1Texture[id.xy];
+	if (zone2Flag == true)
+		final_colour += zone2Texture[id.xy];
+	if (zone3Flag == true)
+		final_colour += zone3Texture[id.xy];
+	if (zone4Flag == true)
+		final_colour += zone4Texture[id.xy];
+	
+	Result[id.xy] = final_colour;
+}
