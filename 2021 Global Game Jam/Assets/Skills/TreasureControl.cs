@@ -37,7 +37,8 @@ public class TreasureControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(displayText.TypeSentance(customDialog, 0.1f));
+            if (displayText)
+                StartCoroutine(displayText.TypeSentance(customDialog, 0.1f));
 
             foreach (GameObject obj in ping)
             {
@@ -45,8 +46,8 @@ public class TreasureControl : MonoBehaviour
                 StartCoroutine(sonar.MapDraw(obj.transform.position, 0));
             }
 
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
 
             Destroy(gameObject,20);
         }
