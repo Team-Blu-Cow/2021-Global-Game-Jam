@@ -6,8 +6,12 @@ using UnityEngine;
 
 public class PlayerLight : MonoBehaviour
 {
+    [Header ("Skill variables")]
     public float onDuration = 5;
     public float range = 2.5f;
+
+    [Header ("Light variables")]
+    public float delayOn = 0.5f;
     public float deadZone = 0.0f;
 
     bool lightOn;
@@ -43,17 +47,22 @@ public class PlayerLight : MonoBehaviour
     void Update()
     {
         Light2D light = GetComponent<Light2D>();
-        if (lightOn)
+        if (lightOn && delayOn >= 0.5)
         {
             time -= Time.deltaTime;
             light.enabled = true;
             if (time < 0)
-                lightOn = false;
+                LightOff();
         }
         else if (time < onDuration)
         { 
             time += Time.deltaTime;
             light.enabled = false;
+        }
+
+        if (delayOn < 0.5)
+        {
+            delayOn += Time.deltaTime;
         }
 
         if (light.pointLightOuterRadius != range)
@@ -103,6 +112,8 @@ public class PlayerLight : MonoBehaviour
     
     void LightOff()
     {
-        lightOn = false;
+        if (lightOn)
+            delayOn = 0;
+        lightOn = false;       
     }
 }
