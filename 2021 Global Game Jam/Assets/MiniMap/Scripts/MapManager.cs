@@ -60,12 +60,7 @@ namespace minimap
             lm_pos.x = Mathf.Lerp(min_lm_pos.x, max_lm_pos.x, n_pos.x);
             lm_pos.y = Mathf.Lerp(min_lm_pos.y, max_lm_pos.y, n_pos.y);
 
-            // STEP3: convert local map coords to screen space
-            Vector3 s_offset = new Vector3(mapTransform.anchoredPosition.x, mapTransform.anchoredPosition.y, 0);
-
-            Vector3 out_pos = lm_pos + s_offset;
-
-            return out_pos;
+            return lm_pos;
         }
 
 
