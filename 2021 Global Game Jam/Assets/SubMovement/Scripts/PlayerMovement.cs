@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     Vector2 drag;
 
-    bool clawMode = false;
+    public bool clawMode = false;
 
     private void Awake()
     {

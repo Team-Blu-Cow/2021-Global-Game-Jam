@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
     public float torchDuration;
     public float sonarRange;
     public float sonarSpeed;
-    public float hullDurability; // Depth controller for the hull
+    public float hullDurability; // Depth controller for the hull???
     public float hullHealth; // 
     public float moveSpeed;
 
@@ -42,5 +42,10 @@ public class PlayerStats : MonoBehaviour
     public void UpgradeTorchDuration()
     {
         playerLight.onDuration = 10.0f;
+    }
+
+    public void UpgradeHullHealth()
+    {
+
     }
 }

@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 44347478}
+  clawMode: 0
 --- !u!4 &44347482
 Transform:
   m_ObjectHideFlags: 0
@@ -671,7 +672,7 @@ MonoBehaviour:
   submarine: {fileID: 44347477}
   mousePos: {x: 0, y: 0, z: 0}
   m_threshold: 0.05
-  m_steps: 20
+  clawMode: 0
 --- !u!1 &436039830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,6 +1751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1810587512}
+  sub: {fileID: 44347477}
+  iKManagerObject: {fileID: 244351384}
 --- !u!212 &1810587514
 SpriteRenderer:
   m_ObjectHideFlags: 0

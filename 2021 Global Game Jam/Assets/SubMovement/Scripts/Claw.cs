@@ -9,9 +9,19 @@ public class Claw : MonoBehaviour
     bool triggeringWithUpgrade = false;
     GameObject triggeringUpgrade;
 
+    public GameObject sub;
+    private PlayerStats pStats;
+    private PlayerMovement pMovement;
+    
+    public GameObject iKManagerObject;
+    private IKManager iKManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        pStats = sub.GetComponent<PlayerStats>();
+        pMovement = sub.GetComponent<PlayerMovement>();
+        iKManager = iKManagerObject.GetComponent<IKManager>();
     }
 
     // Update is called once per frame
@@ -28,9 +38,20 @@ public class Claw : MonoBehaviour
 
             TreasureControl treasureType = triggeringUpgrade.GetComponent<TreasureControl>();
 
-            if(treasureType.reward == PlayerUpgrades.Upgrades.torchRange)
+            if (pMovement.clawMode == true)
             {
-                
+                if (treasureType.reward == PlayerUpgrades.Upgrades.torchRange)
+                {
+                    pStats.UpgradeTorchRange();
+                }
+
+                if (treasureType.reward == PlayerUpgrades.Upgrades.torchDuraion)
+                {
+                    pStats.UpgradeTorchDuration();
+                }
+
+                pMovement.clawMode = false;
+                iKManager.clawMode = false;
             }
         }
 
