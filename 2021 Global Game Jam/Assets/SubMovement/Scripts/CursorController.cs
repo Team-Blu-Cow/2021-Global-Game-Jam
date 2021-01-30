@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
-    [HideInInspector]
-    public MasterInput input;
-    [HideInInspector]
-    public Vector3 mousePos;
-    public Vector3 moveDir;
-    [HideInInspector]
-    public Transform thisTransform;
+    [HideInInspector] public MasterInput input;
+    [HideInInspector] public Vector3 mousePos;
+    [HideInInspector] public Vector3 moveDir;
+    [HideInInspector] public Transform thisTransform;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
 
     public float speed;
+    public bool render = false;
 
     void Awake()
     {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         thisTransform = gameObject.GetComponent<Transform>();
 
         input = new MasterInput();
@@ -38,7 +38,7 @@ public class CursorController : MonoBehaviour
     {
         Vector2 worldPos;
         worldPos = Camera.main.ScreenToWorldPoint(position);
-        mousePos = new Vector3(worldPos.x, worldPos.y, 1);
+        mousePos = new Vector3(worldPos.x, worldPos.y, -1);
     }
 
     void GamepadMoveCursor(Vector2 gamepadAxis)
@@ -60,5 +60,11 @@ public class CursorController : MonoBehaviour
     public void OnStopMove()
     {
         moveDir = new Vector3(0, 0, 0);
+    }
+
+    public void SetRender(bool renderflag)
+    {
+        render = renderflag;
+        spriteRenderer.enabled = renderflag;
     }
 }

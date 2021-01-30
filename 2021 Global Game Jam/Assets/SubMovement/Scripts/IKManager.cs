@@ -114,5 +114,7 @@ public class IKManager : MonoBehaviour
             cursorObject.mousePos = subrb.position;
         else
             cursorObject.mousePos = subrb.position + new Vector2(2,-1);
+
+        cursorObject.SetRender(clawMode);
     }
 }
