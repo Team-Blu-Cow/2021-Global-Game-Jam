@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Treasure
-
   layers:
   - Default
   - TransparentFX
@@ -13,15 +12,16 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
-  - 
   - 
   - Terrain
   - Player
-  - Monster
-  - Obsticle
   - Foliage
-  - AI safe zone
+  - Safe Zone
+  - Monster
+  - Pickups
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -41,7 +41,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 2181553915
     locked: 0
