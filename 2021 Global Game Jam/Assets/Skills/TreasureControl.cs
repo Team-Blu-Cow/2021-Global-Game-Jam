@@ -31,6 +31,7 @@ public class TreasureControl : MonoBehaviour
         {
             foreach (GameObject obj in ping)
             {
+                Debug.Log(obj.name);
                 StartCoroutine(sonar.MapDraw(obj.transform.position, 0));
             }
 

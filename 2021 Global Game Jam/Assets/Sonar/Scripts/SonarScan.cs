@@ -74,9 +74,7 @@ public class SonarScan : MonoBehaviour
         // Draw to miniMap
         Vector3 mapPos = map.TranslateWorldToMapPosition(treasurePos);
 
-        GameObject treasureMap;
-
-        treasureMap = Instantiate(drawObject, mapPos, transform.rotation, canvas);
+        GameObject treasureMap = Instantiate(drawObject, mapPos, transform.rotation, canvas);
         treasureMap.GetComponent<RectTransform>().anchoredPosition = mapPos;
     }
 
