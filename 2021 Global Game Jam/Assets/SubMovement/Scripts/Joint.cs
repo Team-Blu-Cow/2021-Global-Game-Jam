@@ -14,7 +14,6 @@ public class Joint : MonoBehaviour
 
     public void Rotate(float angle)
     {
-        //transform.eulerAngles = new Vector3(0, 0, angle);
         transform.Rotate(Vector3.forward * angle);
     }
 

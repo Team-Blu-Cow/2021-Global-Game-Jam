@@ -18,9 +18,9 @@ public class IKManager : MonoBehaviour
 
     public float m_threshold = 0.05f;
     private float m_rate = 10.0f;
-    public int m_steps = 20;
+    private int m_steps = 2;
 
-    private bool clawMode = false;
+    public bool clawMode = false;
 
     private void Awake()
     {
