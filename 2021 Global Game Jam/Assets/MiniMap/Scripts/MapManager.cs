@@ -42,7 +42,7 @@ namespace minimap
             
         }
 
-        Vector3 TranslateWorldToMapPosition(Vector3 position)
+        public Vector3 TranslateWorldToMapPosition(Vector3 position)
         {
             // STEP1: normalize world coords
             Vector3 max_w_pos = new Vector3(mapWidth / 2.0f, mapHeight / 2.0f, 0);
