@@ -11,14 +11,14 @@ namespace minimap
         [Header("Movement Settings")]
         [SerializeField] float moveSpeed = 5f;
 
-        private TestPlayerControls controls;
+        private MasterInput controls;
         Vector2 moveDirection;
 
         void Awake()
         {
-            controls = new TestPlayerControls();
-            controls.testplayercontrols.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
-            controls.testplayercontrols.Move.canceled += ctx => OnStopMove();
+            controls = new MasterInput();
+            controls.PlayerControls.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
+            controls.PlayerControls.Move.canceled += ctx => OnStopMove();
         }
         private void OnEnable()
         {

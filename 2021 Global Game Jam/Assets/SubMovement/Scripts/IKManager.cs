@@ -13,7 +13,7 @@ public class IKManager : MonoBehaviour
     public GameObject submarine;
     private Rigidbody2D subrb;
 
-    public InputManager controls;
+    public MasterInput controls;
     public Vector3 mousePos;
 
     public float m_threshold = 0.05f;
@@ -24,9 +24,9 @@ public class IKManager : MonoBehaviour
 
     private void Awake()
     {
-        controls = new InputManager();
-        controls.Player.Mouse.performed += ctx => TargetMouse(ctx.ReadValue<Vector2>());
-        controls.Player.Claw.started += ctx => EnableClawMode();
+        controls = new MasterInput();
+        controls.PlayerControls.MousePos.performed += ctx => TargetMouse(ctx.ReadValue<Vector2>());
+        controls.PlayerControls.Claw.started += ctx => EnableClawMode();
     }
 
     private void OnEnable()

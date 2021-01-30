@@ -8,14 +8,14 @@ public class AI_PlayerMovement : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] float moveSpeed = 5f;
 
-    private InputController controls;
+    private MasterInput controls;
     Vector2 moveDirection;
 
     void Awake()
     {
-        controls = new InputController();
-        controls.Movement.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
-        controls.Movement.Move.canceled += ctx => OnStopMove();
+        controls = new MasterInput();
+        controls.PlayerControls.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
+        controls.PlayerControls.Move.canceled += ctx => OnStopMove();
     }
     private void OnEnable()
     {

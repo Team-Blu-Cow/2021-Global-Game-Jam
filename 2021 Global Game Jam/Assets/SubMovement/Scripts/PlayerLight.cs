@@ -17,7 +17,7 @@ public class PlayerLight : MonoBehaviour
     bool lightOn;
     float time;
 
-    private TestPlayerControls controls;
+    private MasterInput controls;
 
     private enum ControlType
     {
@@ -28,10 +28,10 @@ public class PlayerLight : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        controls = new TestPlayerControls();
-        controls.testplayercontrols.Light.started += ctx => LightOn();
-        controls.testplayercontrols.Light.canceled += ctx => LightOff();
-        controls.testplayercontrols.Mouse.performed += ctx => Aim(ctx.ReadValue<Vector2>(), ControlType.MOUSE);
+        controls = new MasterInput();
+        controls.PlayerControls.Light.started += ctx => LightOn();
+        controls.PlayerControls.Light.canceled += ctx => LightOff();
+        controls.PlayerControls.MousePos.performed += ctx => Aim(ctx.ReadValue<Vector2>(), ControlType.MOUSE);
     }
 
     public void OnEnable()

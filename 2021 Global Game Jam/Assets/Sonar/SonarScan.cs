@@ -7,13 +7,13 @@ public class SonarScan : MonoBehaviour
     public int scanRadius = 5;
     public float scanLifetime = 4;
 
-    private TestPlayerControls controls;    
+    private MasterInput controls;    
 
     // Start is called before the first frame update
     void Awake()
     {
-        controls = new TestPlayerControls();
-        controls.testplayercontrols.Sonar.performed += ctx => Scan();
+        controls = new MasterInput();
+        controls.PlayerControls.Sonar.performed += ctx => Scan();
     }
     private void OnEnable()
     {

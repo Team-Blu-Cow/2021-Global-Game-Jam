@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D rb;
 
-    public InputManager controls;
+    public MasterInput controls;
 
     Vector2 movement;
     Vector2 drag;
@@ -19,10 +19,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        controls = new InputManager();
-        controls.Player.Movement.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
-        controls.Player.Movement.canceled += ctx => OnStopMove(ctx.ReadValue<Vector2>());
-        controls.Player.Claw.started += ctx => OnEnteringClawMode();
+        controls = new MasterInput();
+        controls.PlayerControls.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
+        controls.PlayerControls.Move.canceled += ctx => OnStopMove(ctx.ReadValue<Vector2>());
+        controls.PlayerControls.Claw.started += ctx => OnEnteringClawMode();
     }
 
     private void OnEnable()

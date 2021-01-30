@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6891365422136440142}
   - component: {fileID: 2391701878653389163}
   - component: {fileID: -2021819514549261486}
-  m_Layer: 15
+  m_Layer: 10
   m_Name: AI safe zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
