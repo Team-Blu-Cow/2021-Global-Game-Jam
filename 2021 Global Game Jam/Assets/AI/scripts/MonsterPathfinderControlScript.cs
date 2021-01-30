@@ -28,7 +28,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     private Seeker monsterSeeker;
     private Rigidbody2D monsterRB;
     private Vector3 monsterPosition;
-
+    private Vector3 investigatePosition = new Vector3();
 
     Vector3 target_position = new Vector3();
 
@@ -135,7 +135,11 @@ public class MonsterPathfinderControlScript : MonoBehaviour
             case AIstate.hunting:
                 HuntUpdate();
                 break;
+            case AIstate.investigate:
+                InvestigateUpdate();
+                break;
             default:
+                state = AIstate.patrol;
                 break;
         }
 
@@ -169,6 +173,15 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         if (!CheckPlayerInRange(calcDetectionRange(loseDetectionMosifier)))
         {
             state = AIstate.patrol;
+        }
+    }
+
+    void InvestigateUpdate()
+    {
+        target_position = investigatePosition;
+        if (CheckPlayerInRange(calcDetectionRange()))
+        {
+            state = AIstate.hunting;
         }
     }
 
@@ -213,6 +226,13 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         }
     }
 
+    public void InvestigatePosition(Vector2 pos)
+    {
+        state = AIstate.investigate;
+        investigatePosition.x = pos.x;
+        investigatePosition.y = pos.y;
+        return;
+    }
 
     public void inc_foliage_count() { foliage_trigger_count++; }
     public void dec_foliage_count() { foliage_trigger_count--; }
