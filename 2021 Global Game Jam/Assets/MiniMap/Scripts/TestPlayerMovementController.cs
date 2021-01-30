@@ -17,6 +17,7 @@ public class TestPlayerMovementController : MonoBehaviour
         controls.testplayercontrols.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
         controls.testplayercontrols.Move.canceled += ctx => OnStopMove();
     }
+
     private void OnEnable()
     {
         controls.Enable();
