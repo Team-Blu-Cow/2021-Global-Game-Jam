@@ -6,6 +6,9 @@ using UnityEngine;
 public class TreasureControl : MonoBehaviour
 {
     public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchRange;
+    public string customDialog;
+    public List<GameObject> ping;
+    public SonarScan sonar;
     float timer = 1;
 
     private void Update()
@@ -25,7 +28,14 @@ public class TreasureControl : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-            Destroy(gameObject);        
+        {
+            foreach (GameObject obj in ping)
+            {
+                StartCoroutine(sonar.MapDraw(obj.transform.position, 0));
+            }
+
+            Destroy(gameObject);
+        }
     }
 
     public IEnumerator Flash(float dist)

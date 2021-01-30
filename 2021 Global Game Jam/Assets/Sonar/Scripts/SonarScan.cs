@@ -6,7 +6,6 @@ public class SonarScan : MonoBehaviour
 {
     [Header("Scan size")]
     public int scanRadius = 5;
-    public float scanLifetime = 4;
 
     [Header("Instatiate objects")]
     public ParticleSystem particleSystem;
@@ -56,7 +55,7 @@ public class SonarScan : MonoBehaviour
                 {
                     Debug.Log(hitCollider.gameObject.name);
                     float dist = Vector3.Distance(transform.position, hitCollider.transform.position); // dist to treasure
-                    float delay = dist / (scanRadius / scanLifetime);
+                    float delay = dist / (scanRadius / (float)particleSystem.simulationSpace);
                     StartCoroutine(hitCollider.GetComponent<TreasureControl>().Flash(delay)); // Start a deleyed flash to light up the treasure depending on distance
                     StartCoroutine(MapDraw(hitCollider.transform.position, delay));
                 }
