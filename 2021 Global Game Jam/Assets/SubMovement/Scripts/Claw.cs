@@ -4,39 +4,69 @@ using UnityEngine;
 
 public class Claw : MonoBehaviour
 {
-    public Joint _joint;
-
     public Rigidbody2D rb;
-    private Rigidbody joint_rb;
 
     bool triggeringWithUpgrade = false;
     GameObject triggeringUpgrade;
 
+    public GameObject sub;
+    private PlayerStats pStats;
+    private PlayerMovement pMovement;
+    
+    public GameObject iKManagerObject;
+    private IKManager iKManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        joint_rb = _joint.GetComponent<Rigidbody>();
+        pStats = sub.GetComponent<PlayerStats>();
+        pMovement = sub.GetComponent<PlayerMovement>();
+        iKManager = iKManagerObject.GetComponent<IKManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        rb.position = new Vector2(joint_rb.position.x, joint_rb.position.y);
+        transform.position = GetComponent<Transform>().parent.position;
+        
 
         if(triggeringWithUpgrade == true && triggeringUpgrade)
         {
             Rigidbody2D upgrade_rb = triggeringUpgrade.GetComponent<Rigidbody2D>();
             upgrade_rb.position = rb.position;
+
+            TreasureControl treasureType = triggeringUpgrade.GetComponent<TreasureControl>();
+
+            if (pMovement.clawMode == true)
+            {
+                if (treasureType.reward == PlayerUpgrades.Upgrades.torchRange)
+                {
+                    pStats.UpgradeTorchRange();
+                }
+
+                if (treasureType.reward == PlayerUpgrades.Upgrades.torchDuraion)
+                {
+                    pStats.UpgradeTorchDuration();
+                }
+
+                if(treasureType.reward == PlayerUpgrades.Upgrades.hullHealth)
+                {
+                    pStats.UpgradeHullHealth();
+                }
+
+                pMovement.clawMode = false;
+                iKManager.clawMode = false;
+            }
         }
 
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Colliding with treasure");
         if(other.tag == "Treasure")
-        {           
+        {
+            Debug.Log("Colliding with treasure");        
             triggeringUpgrade = other.gameObject;
             triggeringWithUpgrade = true;
         }

@@ -9,7 +9,10 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     public GameObject player;
     private Transform playerTransform;
 
-    public float speed = 200f;
+    public float normalSpeed = 500f;
+    public float railsSpeed = 500f;
+    public float speed;
+
     public float nextWaypointDistance = 3f;
 
     public float base_detection = 5f;
@@ -23,7 +26,6 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
 
     public GameObject Monster;
     private Seeker monsterSeeker;
@@ -35,6 +37,9 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     System.Random rnd = new System.Random();
     public List<PathfindingNode> nodeList;
+
+    private Vector3 RailsOnCompleteteleportPos;
+    private bool doRailsTeleport = false;
 
     float calcDetectionRange(float modifier = 1f)
     {
@@ -61,32 +66,35 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         return detect;
     }
 
-
     public enum AIstate
     {
         idle = 0, // stationary
         patrol, // swimming around
         hunting, // hunting player
         investigate, // go towards a point
-        sleeping // not on map
+        sleeping, // not on map
+        on_rails // for monster being on rails
     }
 
-    AIstate state = AIstate.patrol;
+    AIstate state = AIstate.sleeping;
 
     void Start()
     {
         playerTransform = player.GetComponent<Transform>();
         monsterSeeker = Monster.GetComponent<Seeker>();
         monsterRB = Monster.GetComponent<Rigidbody2D>();
-
+        speed = normalSpeed;
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     void UpdatePath()
     {
-        if(monsterSeeker.IsDone())
+        if(state != AIstate.sleeping)
         {
-            monsterSeeker.StartPath(monsterRB.position, target_position, OnPathComplete);
+            if (monsterSeeker.IsDone())
+            {
+                monsterSeeker.StartPath(monsterRB.position, target_position, OnPathComplete);
+            }
         }
     }
 
@@ -105,25 +113,18 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         if (path == null)
             return;
 
-        if(atEndOfPath())
+        if(!atEndOfPath())
         {
-            reachedEndOfPath = true;
-            return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
-        }
-
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - monsterRB.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
-        monsterRB.AddForce(force);
+            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - monsterRB.position).normalized;
+            Vector2 force = direction * speed * Time.deltaTime;
+            monsterRB.AddForce(force);
 
 
-        float distance = Vector2.Distance(monsterRB.position, path.vectorPath[currentWaypoint]);
-        if (distance < nextWaypointDistance)
-        {
-            currentWaypoint++;
+            float distance = Vector2.Distance(monsterRB.position, path.vectorPath[currentWaypoint]);
+            if (distance < nextWaypointDistance)
+            {
+                currentWaypoint++;
+            }
         }
 
         monsterPosition = Monster.GetComponent<Transform>().position;
@@ -139,11 +140,16 @@ public class MonsterPathfinderControlScript : MonoBehaviour
             case AIstate.investigate:
                 InvestigateUpdate();
                 break;
+            case AIstate.on_rails:
+                OnRailsUpdate();
+                break;
+            case AIstate.sleeping:
+                SleepingUpdate();
+                break;
             default:
                 state = AIstate.patrol;
                 break;
         }
-
     }
 
     void PatrolUpdate()
@@ -188,6 +194,52 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         {
             state = AIstate.hunting;
         }
+    }
+
+    public void InitOnRails(GameObject RailsStartPoint, GameObject RailsEndPoint, GameObject RailsTeleportPoint = null)
+    {
+        if(RailsStartPoint && RailsEndPoint)
+        {
+            speed = railsSpeed;
+            state = AIstate.on_rails;
+            Monster.GetComponent<Transform>().position = RailsStartPoint.GetComponent<Transform>().position;
+            target_position = RailsEndPoint.GetComponent<Transform>().position;
+
+            if(RailsTeleportPoint)
+            {
+                RailsOnCompleteteleportPos = RailsTeleportPoint.GetComponent<Transform>().position;
+                doRailsTeleport = true;
+            }
+            else
+            {
+                doRailsTeleport = false;
+            }
+        }
+    }
+
+    void OnRailsUpdate()
+    {
+        if (atEndOfPath())
+        {
+            EndOnRails();
+        }
+    }
+
+    public void EndOnRails()
+    {
+        speed = normalSpeed;
+        state = AIstate.patrol;
+        if (doRailsTeleport)
+        {
+            Monster.GetComponent<Transform>().position = RailsOnCompleteteleportPos;
+        }
+        currentWaypoint = int.MaxValue;
+    }
+
+
+    void SleepingUpdate()
+    {
+        Monster.GetComponent<Transform>().position = new Vector3(1000, 1000, 0);
     }
 
     bool CheckPlayerInRange(float range)
