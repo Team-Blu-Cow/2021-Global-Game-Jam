@@ -50,6 +50,11 @@ public class Claw : MonoBehaviour
                     pStats.UpgradeTorchDuration();
                 }
 
+                if(treasureType.reward == PlayerUpgrades.Upgrades.hullHealth)
+                {
+                    pStats.UpgradeHullHealth();
+                }
+
                 pMovement.clawMode = false;
                 iKManager.clawMode = false;
             }
