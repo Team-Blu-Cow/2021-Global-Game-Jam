@@ -8,9 +8,9 @@ public class PlayerStats : MonoBehaviour
 
     public float torchRange;
     public float torchDuration;
-    public float sonarRange;
+    public int sonarRange;
     public float sonarSpeed;
-    public float hullDurability; // Depth controller for the hull???
+    public float hullDurability = 10.0f; // Depth controller for the hull???
     public float hullHealth = 100.0f; // 
     public float moveSpeed;
 
@@ -21,12 +21,16 @@ public class PlayerStats : MonoBehaviour
     public Light2D pLight;
     private PlayerLight playerLight;
 
+    public GameObject sonarSystem;
+    private SonarScan sonarScan;
+
     // Start is called before the first frame update
     void Start()
     {
         pMovement = submarine.GetComponent<PlayerMovement>();
         upgrades = submarine.GetComponent<PlayerUpgrades>();
         playerLight = pLight.GetComponent<PlayerLight>();
+        sonarScan = sonarSystem.GetComponent<SonarScan>();
     }
 
     // Update is called once per frame
@@ -34,6 +38,8 @@ public class PlayerStats : MonoBehaviour
     {
         torchRange = playerLight.range;
         torchDuration = playerLight.onDuration;
+        moveSpeed = pMovement.moveSpeed;
+        sonarRange = sonarScan.scanRadius;
     }
 
     public void UpgradeTorchRange()
@@ -50,4 +56,21 @@ public class PlayerStats : MonoBehaviour
     {
         hullHealth = 150.0f;
     }
+
+    public void UpgradeMoveSpeed()
+    {
+        pMovement.moveSpeed = 50.0f;
+    }
+
+    public void UpgradeSonarRange()
+    {
+        Debug.Log("fghj");
+        sonarScan.scanRadius = 10;
+    }
+
+    public void UpgradeHullDurability()
+    {
+        hullDurability = 20.0f;
+    }
+
 }

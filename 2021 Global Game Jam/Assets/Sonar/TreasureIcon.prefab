@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 520528499526251815}
   - component: {fileID: 8377941395562106403}
   - component: {fileID: -795442465408987730}
-  - component: {fileID: 3399189590572236957}
-  - component: {fileID: -1758512604328232286}
+  - component: {fileID: 186672656704893852}
   m_Layer: 5
   m_Name: TreasureIcon
   m_TagString: Untagged
@@ -90,19 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15612602266994e4a9b7b03266dbc6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3399189590572236957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3403354506900000196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15612602266994e4a9b7b03266dbc6fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-1758512604328232286
+--- !u!114 &186672656704893852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

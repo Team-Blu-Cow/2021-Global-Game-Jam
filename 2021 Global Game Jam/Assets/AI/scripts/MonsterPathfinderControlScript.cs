@@ -9,7 +9,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     public GameObject player;
     private Transform playerTransform;
 
-    public float normalSpeed = 500f;
+    public float normalSpeed = 200f;
     public float railsSpeed = 500f;
     public float speed;
 

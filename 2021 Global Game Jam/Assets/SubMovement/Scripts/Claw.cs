@@ -55,6 +55,21 @@ public class Claw : MonoBehaviour
                     pStats.UpgradeHullHealth();
                 }
 
+                if (treasureType.reward == PlayerUpgrades.Upgrades.moveSpdMod)
+                {
+                    pStats.UpgradeMoveSpeed();
+                }
+
+                if(treasureType.reward == PlayerUpgrades.Upgrades.sonarRange)
+                {
+                    pStats.UpgradeSonarRange();
+                }
+
+                if(treasureType.reward == PlayerUpgrades.Upgrades.hullDuribilty)
+                {
+                    pStats.UpgradeHullDurability();
+                }
+
                 pMovement.clawMode = false;
                 iKManager.clawMode = false;
             }
