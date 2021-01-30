@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMapController : MonoBehaviour
+namespace minimap
 {
-    
+    public class PlayerMapController : MonoBehaviour
+    {
 
+
+    }
 }
+

@@ -16,13 +16,12 @@ TagManager:
   - Player
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Terrain
+  - Player
+  - Monster
+  - Obsticle
+  - Foliage
+  - AI safe zone
   - 
   - 
   - 
