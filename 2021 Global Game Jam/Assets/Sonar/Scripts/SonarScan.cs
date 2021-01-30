@@ -8,10 +8,14 @@ public class SonarScan : MonoBehaviour
     public int scanRadius = 5;
     public float scanLifetime = 4;
 
-    [Header("Particle")]
+    [Header("Instatiate objects")]
     public ParticleSystem particleSystem;
+    public GameObject drawObject;
+    public Transform canvas;
 
     public float scanDelay = 2;
+
+    public minimap.MapManager map;
 
     private MasterInput controls;
     private float time = 2;
@@ -52,13 +56,29 @@ public class SonarScan : MonoBehaviour
                 {
                     Debug.Log(hitCollider.gameObject.name);
                     float dist = Vector3.Distance(transform.position, hitCollider.transform.position); // dist to treasure
-                    StartCoroutine(hitCollider.GetComponent<TreasureControl>().Flash(dist / (scanRadius / scanLifetime))); // Start a deleyed flash to light up the treasure depending on distance
+                    float delay = dist / (scanRadius / scanLifetime);
+                    StartCoroutine(hitCollider.GetComponent<TreasureControl>().Flash(delay)); // Start a deleyed flash to light up the treasure depending on distance
+                    StartCoroutine(MapDraw(hitCollider.transform.position, delay));
                 }
             }
+
             Instantiate(particleSystem, transform.position, transform.rotation, transform); // create a new partcle for the scan
 
             ///// Can use transform position here o tell monster where the scan took place///////////
         }
+    }
+
+    public IEnumerator MapDraw(Vector3 treasurePos, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Draw to miniMap
+        Vector3 mapPos = map.TranslateWorldToMapPosition(treasurePos);
+
+        GameObject treasureMap;
+
+        treasureMap = Instantiate(drawObject, mapPos, transform.rotation, canvas);
+        treasureMap.GetComponent<RectTransform>().anchoredPosition = mapPos;
     }
 
     private void OnDrawGizmos()
