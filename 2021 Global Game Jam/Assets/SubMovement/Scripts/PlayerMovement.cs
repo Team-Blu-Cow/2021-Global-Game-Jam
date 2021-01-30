@@ -6,7 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private float moveSpeed = 30.0f;
+    public float hullHealth = 100.0f;
+
     public Rigidbody2D rb;
+
     public InputManager controls;
 
     Vector2 movement;
@@ -20,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
         controls = new InputManager();
         controls.Player.Movement.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
         controls.Player.Movement.canceled += ctx => OnStopMove(ctx.ReadValue<Vector2>());
-        controls.Player.Rotation.performed += ctx => OnRotation(ctx.ReadValue<float>());
         controls.Player.Claw.started += ctx => OnEnteringClawMode();
     }
 
@@ -36,11 +38,16 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        drag = -rb.velocity * 0.5f;
+
         if (clawMode == false)
-        {
-            drag = -rb.velocity * 0.25f;
+        {          
             rb.AddForce((movement * moveSpeed * Time.fixedDeltaTime) + drag);
             rb.SetRotation(rotation);
+        }
+        else 
+        {
+            rb.AddForce(drag);
         }
     }
 
@@ -52,11 +59,6 @@ public class PlayerMovement : MonoBehaviour
     void OnStopMove(Vector2 direction)
     {
         movement = direction;
-    }
-
-    void OnRotation(float Irotation)
-    {
-        rotation += Irotation;
     }
 
     void OnEnteringClawMode()

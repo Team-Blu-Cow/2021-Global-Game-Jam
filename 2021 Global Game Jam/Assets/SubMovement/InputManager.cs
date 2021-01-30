@@ -35,10 +35,10 @@ public class @InputManager : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Rotation"",
-                    ""type"": ""Button"",
-                    ""id"": ""a3ec10f8-0d82-4016-9f52-784546d0d394"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Mouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""f2e48711-2fd0-4a68-b11b-b7060cd49178"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -111,37 +111,15 @@ public class @InputManager : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""49cda932-4acc-4725-a803-14400f8f7889"",
-                    ""path"": ""1DAxis"",
+                    ""name"": """",
+                    ""id"": ""8df9e84f-d64a-4c89-a0e4-c0dc85e2f676"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": true,
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""69071d85-f2d5-4ff2-9293-78ed14bceede"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""92fb5a3c-a1ff-4429-bf74-d4d89f62a90f"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -169,7 +147,7 @@ public class @InputManager : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Claw = m_Player.FindAction("Claw", throwIfNotFound: true);
-        m_Player_Rotation = m_Player.FindAction("Rotation", throwIfNotFound: true);
+        m_Player_Mouse = m_Player.FindAction("Mouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -221,14 +199,14 @@ public class @InputManager : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Claw;
-    private readonly InputAction m_Player_Rotation;
+    private readonly InputAction m_Player_Mouse;
     public struct PlayerActions
     {
         private @InputManager m_Wrapper;
         public PlayerActions(@InputManager wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Claw => m_Wrapper.m_Player_Claw;
-        public InputAction @Rotation => m_Wrapper.m_Player_Rotation;
+        public InputAction @Mouse => m_Wrapper.m_Player_Mouse;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -244,9 +222,9 @@ public class @InputManager : IInputActionCollection, IDisposable
                 @Claw.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClaw;
                 @Claw.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClaw;
                 @Claw.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClaw;
-                @Rotation.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotation;
-                @Rotation.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotation;
-                @Rotation.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotation;
+                @Mouse.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouse;
+                @Mouse.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouse;
+                @Mouse.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouse;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -257,9 +235,9 @@ public class @InputManager : IInputActionCollection, IDisposable
                 @Claw.started += instance.OnClaw;
                 @Claw.performed += instance.OnClaw;
                 @Claw.canceled += instance.OnClaw;
-                @Rotation.started += instance.OnRotation;
-                @Rotation.performed += instance.OnRotation;
-                @Rotation.canceled += instance.OnRotation;
+                @Mouse.started += instance.OnMouse;
+                @Mouse.performed += instance.OnMouse;
+                @Mouse.canceled += instance.OnMouse;
             }
         }
     }
@@ -277,6 +255,6 @@ public class @InputManager : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnClaw(InputAction.CallbackContext context);
-        void OnRotation(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
     }
 }
