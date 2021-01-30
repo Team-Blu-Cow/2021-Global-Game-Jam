@@ -41,6 +41,14 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Sonar"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a5b5ab2-7bc9-40d4-978e-a0a56ca7eb53"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -120,6 +128,17 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e02b98c-d40e-4253-ad29-aa89b2016ba4"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Sonar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -137,6 +156,7 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
         m_testplayercontrols_Move = m_testplayercontrols.FindAction("Move", throwIfNotFound: true);
         m_testplayercontrols_Light = m_testplayercontrols.FindAction("Light", throwIfNotFound: true);
         m_testplayercontrols_Mouse = m_testplayercontrols.FindAction("Mouse", throwIfNotFound: true);
+        m_testplayercontrols_Sonar = m_testplayercontrols.FindAction("Sonar", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -189,6 +209,7 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_testplayercontrols_Move;
     private readonly InputAction m_testplayercontrols_Light;
     private readonly InputAction m_testplayercontrols_Mouse;
+    private readonly InputAction m_testplayercontrols_Sonar;
     public struct TestplayercontrolsActions
     {
         private @TestPlayerControls m_Wrapper;
@@ -196,6 +217,7 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_testplayercontrols_Move;
         public InputAction @Light => m_Wrapper.m_testplayercontrols_Light;
         public InputAction @Mouse => m_Wrapper.m_testplayercontrols_Mouse;
+        public InputAction @Sonar => m_Wrapper.m_testplayercontrols_Sonar;
         public InputActionMap Get() { return m_Wrapper.m_testplayercontrols; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +236,9 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                 @Mouse.started -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMouse;
                 @Mouse.performed -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMouse;
                 @Mouse.canceled -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMouse;
+                @Sonar.started -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnSonar;
+                @Sonar.performed -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnSonar;
+                @Sonar.canceled -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnSonar;
             }
             m_Wrapper.m_TestplayercontrolsActionsCallbackInterface = instance;
             if (instance != null)
@@ -227,6 +252,9 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                 @Mouse.started += instance.OnMouse;
                 @Mouse.performed += instance.OnMouse;
                 @Mouse.canceled += instance.OnMouse;
+                @Sonar.started += instance.OnSonar;
+                @Sonar.performed += instance.OnSonar;
+                @Sonar.canceled += instance.OnSonar;
             }
         }
     }
@@ -245,5 +273,6 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnSonar(InputAction.CallbackContext context);
     }
 }
