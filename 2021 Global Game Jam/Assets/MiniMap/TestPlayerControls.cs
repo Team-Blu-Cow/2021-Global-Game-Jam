@@ -33,6 +33,14 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""12accc64-bbbe-4a81-bd22-029f64d87534"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +109,17 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Light"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f393c16b-db6d-46cd-8a91-fbecc34a7bf3"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -117,6 +136,7 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
         m_testplayercontrols = asset.FindActionMap("testplayercontrols", throwIfNotFound: true);
         m_testplayercontrols_Move = m_testplayercontrols.FindAction("Move", throwIfNotFound: true);
         m_testplayercontrols_Light = m_testplayercontrols.FindAction("Light", throwIfNotFound: true);
+        m_testplayercontrols_Mouse = m_testplayercontrols.FindAction("Mouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -168,12 +188,14 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
     private ITestplayercontrolsActions m_TestplayercontrolsActionsCallbackInterface;
     private readonly InputAction m_testplayercontrols_Move;
     private readonly InputAction m_testplayercontrols_Light;
+    private readonly InputAction m_testplayercontrols_Mouse;
     public struct TestplayercontrolsActions
     {
         private @TestPlayerControls m_Wrapper;
         public TestplayercontrolsActions(@TestPlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_testplayercontrols_Move;
         public InputAction @Light => m_Wrapper.m_testplayercontrols_Light;
+        public InputAction @Mouse => m_Wrapper.m_testplayercontrols_Mouse;
         public InputActionMap Get() { return m_Wrapper.m_testplayercontrols; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -189,6 +211,9 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                 @Light.started -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnLight;
                 @Light.performed -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnLight;
                 @Light.canceled -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnLight;
+                @Mouse.started -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMouse;
+                @Mouse.performed -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMouse;
+                @Mouse.canceled -= m_Wrapper.m_TestplayercontrolsActionsCallbackInterface.OnMouse;
             }
             m_Wrapper.m_TestplayercontrolsActionsCallbackInterface = instance;
             if (instance != null)
@@ -199,6 +224,9 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
                 @Light.started += instance.OnLight;
                 @Light.performed += instance.OnLight;
                 @Light.canceled += instance.OnLight;
+                @Mouse.started += instance.OnMouse;
+                @Mouse.performed += instance.OnMouse;
+                @Mouse.canceled += instance.OnMouse;
             }
         }
     }
@@ -216,5 +244,6 @@ public class @TestPlayerControls : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
     }
 }
