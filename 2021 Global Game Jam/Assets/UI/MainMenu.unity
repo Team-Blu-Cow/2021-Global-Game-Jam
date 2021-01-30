@@ -984,7 +984,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016533490}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
         m_MethodName: QuitAppliction
         m_Mode: 1
@@ -1034,6 +1034,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578706992}
   m_CullTransparentMesh: 1
+--- !u!114 &1610386568 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6419224159384793574, guid: 0d6e978e88e69c948b2d8cf40af307fe, type: 3}
+  m_PrefabInstance: {fileID: 5985770429071889832}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205bc2f306901e848ae6499d45248c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1658646935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,7 +1128,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016533490}
+      - m_Target: {fileID: 1610386568}
         m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
         m_MethodName: SwitchScene
         m_Mode: 5
