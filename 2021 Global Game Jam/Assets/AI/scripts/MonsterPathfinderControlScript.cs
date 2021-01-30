@@ -18,6 +18,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     public float max_noise = 5;
     public float noise_bias = 1;
 
+    private int foliage_trigger_count = 0;
 
     Path path;
     int currentWaypoint = 0;
@@ -49,7 +50,13 @@ public class MonsterPathfinderControlScript : MonoBehaviour
             noise = max_noise;
         }
 
-        float detect = (base_detection + noise) * modifier;
+        float foliage_modifier = 1f;
+        if(InFoliage())
+        {
+            foliage_modifier = 0.3f;
+        }
+
+        float detect = (base_detection + noise) * modifier * foliage_modifier;
         return detect;
     }
 
@@ -193,5 +200,21 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         Gizmos.DrawWireSphere(monsterPosition, calcDetectionRange());
         Gizmos.DrawWireSphere(monsterPosition, calcDetectionRange(loseDetectionMosifier));
     }
+
+    bool InFoliage()
+    {
+        if(foliage_trigger_count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    public void inc_foliage_count() { foliage_trigger_count++; }
+    public void dec_foliage_count() { foliage_trigger_count--; }
 
 }
