@@ -6,27 +6,52 @@ using Pathfinding;
 public class MonsterPathfinderControlScript : MonoBehaviour
 {
 
-    public Transform Player;
+    public GameObject player;
+    private Transform playerTransform;
 
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
-    public float spottingRange = 10f;
-    public float loseDetectionRange = 15f;
+
+    public float base_detection = 5f;
+    public float noise_multiplier = 0.1f;
+    public float loseDetectionMosifier = 1.5f;
+    public float max_noise = 5;
+    public float noise_bias = 1;
+
 
     Path path;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
 
     public GameObject Monster;
-    private Seeker seeker;
-    private Rigidbody2D rb;
-    private Vector3 position;
+    private Seeker monsterSeeker;
+    private Rigidbody2D monsterRB;
+    private Vector3 monsterPosition;
 
 
     Vector3 target_position = new Vector3();
 
     System.Random rnd = new System.Random();
     public List<PathfindingNode> nodeList;
+
+    float calcDetectionRange(float modifier = 1f)
+    {
+        float noise = player.GetComponent<Rigidbody2D>().velocity.magnitude;
+        noise = noise * noise_multiplier;
+        noise = noise - noise_bias;
+
+        if(noise < 0)
+        {
+            noise = 0;
+        }
+        else if(noise > max_noise)
+        {
+            noise = max_noise;
+        }
+
+        float detect = (base_detection + noise) * modifier;
+        return detect;
+    }
 
 
     enum AIstate
@@ -40,20 +65,20 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     AIstate state = AIstate.patrol;
 
-    // Start is called before the first frame update
     void Start()
     {
-        seeker = Monster.GetComponent<Seeker>();
-        rb = Monster.GetComponent<Rigidbody2D>();
+        playerTransform = player.GetComponent<Transform>();
+        monsterSeeker = Monster.GetComponent<Seeker>();
+        monsterRB = Monster.GetComponent<Rigidbody2D>();
 
-        InvokeRepeating("UpdatePath", 0f, 1f);
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     void UpdatePath()
     {
-        if(seeker.IsDone())
+        if(monsterSeeker.IsDone())
         {
-            seeker.StartPath(rb.position, target_position, OnPathComplete);
+            monsterSeeker.StartPath(monsterRB.position, target_position, OnPathComplete);
         }
     }
 
@@ -82,18 +107,18 @@ public class MonsterPathfinderControlScript : MonoBehaviour
             reachedEndOfPath = false;
         }
 
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - monsterRB.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
-        rb.AddForce(force);
+        monsterRB.AddForce(force);
 
 
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        float distance = Vector2.Distance(monsterRB.position, path.vectorPath[currentWaypoint]);
         if (distance < nextWaypointDistance)
         {
             currentWaypoint++;
         }
 
-        position = Monster.GetComponent<Transform>().position;
+        monsterPosition = Monster.GetComponent<Transform>().position;
 
         switch (state)
         {
@@ -125,7 +150,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         }
         
 
-        if(CheckPlayerInRange(spottingRange))
+        if(CheckPlayerInRange(calcDetectionRange()))
         {
             state = AIstate.hunting;
         }
@@ -133,8 +158,8 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     void HuntUpdate()
     {
-        target_position = Player.position;
-        if (!CheckPlayerInRange(loseDetectionRange))
+        target_position = playerTransform.position;
+        if (!CheckPlayerInRange(calcDetectionRange(loseDetectionMosifier)))
         {
             state = AIstate.patrol;
         }
@@ -142,7 +167,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     bool CheckPlayerInRange(float range)
     {
-        float distance = Vector2.Distance(Player.position, position);
+        float distance = Vector2.Distance(playerTransform.position, monsterPosition);
 
         if(distance < range)
         {
@@ -165,8 +190,8 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(position, spottingRange);
-        Gizmos.DrawWireSphere(position, loseDetectionRange);
+        Gizmos.DrawWireSphere(monsterPosition, calcDetectionRange());
+        Gizmos.DrawWireSphere(monsterPosition, calcDetectionRange(loseDetectionMosifier));
     }
 
 }

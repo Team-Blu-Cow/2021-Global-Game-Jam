@@ -29,11 +29,10 @@ public class AI_PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Vector3 movement = new Vector3(0, 0, 0);
+        Vector2 movement = moveDirection;
 
-        movement = new Vector3(moveDirection.x, moveDirection.y, 0);
-
-        transform.position += movement * Time.deltaTime * moveSpeed;
+        GetComponent<Rigidbody2D>().AddForce(moveDirection);
+        
     }
 
     void OnMove(Vector2 direction)
