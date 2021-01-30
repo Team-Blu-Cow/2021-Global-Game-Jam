@@ -19,6 +19,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     public float noise_bias = 1;
 
     private int foliage_trigger_count = 0;
+    private int safezone_trigger_count = 0;
 
     Path path;
     int currentWaypoint = 0;
@@ -61,7 +62,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     }
 
 
-    enum AIstate
+    public enum AIstate
     {
         idle = 0, // stationary
         patrol, // swimming around
@@ -161,7 +162,7 @@ public class MonsterPathfinderControlScript : MonoBehaviour
         }
         
 
-        if(CheckPlayerInRange(calcDetectionRange()))
+        if(CheckPlayerInRange(calcDetectionRange()) && !InSafezone())
         {
             state = AIstate.hunting;
         }
@@ -171,6 +172,10 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     {
         target_position = playerTransform.position;
         if (!CheckPlayerInRange(calcDetectionRange(loseDetectionMosifier)))
+        {
+            state = AIstate.patrol;
+        }
+        if(InSafezone())
         {
             state = AIstate.patrol;
         }
@@ -217,14 +222,23 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     bool InFoliage()
     {
         if(foliage_trigger_count > 0)
-        {
             return true;
-        }
         else
-        {
             return false;
-        }
     }
+
+    bool InSafezone()
+    {
+        if (safezone_trigger_count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    //public void SetState(AIstate s)
+    //{
+    //    state = s;
+    //}
 
     public void InvestigatePosition(Vector2 pos)
     {
@@ -236,5 +250,11 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     public void inc_foliage_count() { foliage_trigger_count++; }
     public void dec_foliage_count() { foliage_trigger_count--; }
+
+
+    public void inc_safezone_count() { safezone_trigger_count++; }
+    public void dec_safezone_count() { safezone_trigger_count--; }
+
+
 
 }
