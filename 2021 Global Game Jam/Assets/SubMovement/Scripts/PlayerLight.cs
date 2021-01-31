@@ -11,10 +11,11 @@ public class PlayerLight : MonoBehaviour
     public float range = 2.5f;
 
     [Header ("Light variables")]
-    public float delayOn = 0.5f;
     public float deadZone = 0.0f;
 
-    bool lightOn;
+    private float delayOn = 0.5f;
+
+    bool lightOn = false;
     float time;
 
     private MasterInput controls;
@@ -28,6 +29,7 @@ public class PlayerLight : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        time = onDuration;
         controls = new MasterInput();
         controls.PlayerControls.Light.started += ctx => LightOn();
         controls.PlayerControls.Light.canceled += ctx => LightOff();

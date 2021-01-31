@@ -4,87 +4,65 @@ using UnityEngine;
 
 public class Claw : MonoBehaviour
 {
-    public Rigidbody2D rb;
-
     bool triggeringWithUpgrade = false;
     GameObject triggeringUpgrade;
 
     public GameObject sub;
+    public Transform pickupPos;
+
     private PlayerStats pStats;
     private PlayerMovement pMovement;
-    
-    public GameObject iKManagerObject;
-    private IKManager iKManager;
 
     // Start is called before the first frame update
     void Start()
     {
         pStats = sub.GetComponent<PlayerStats>();
         pMovement = sub.GetComponent<PlayerMovement>();
-        iKManager = iKManagerObject.GetComponent<IKManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        transform.position = GetComponent<Transform>().parent.position;
-        
+        transform.localPosition = new Vector3();
+        transform.localRotation = new Quaternion();
 
         if(triggeringWithUpgrade == true && triggeringUpgrade)
         {
-            Rigidbody2D upgrade_rb = triggeringUpgrade.GetComponent<Rigidbody2D>();
-            upgrade_rb.position = rb.position;
+            triggeringUpgrade.GetComponent<Rigidbody2D>().position = pickupPos.position;
 
             TreasureControl treasureType = triggeringUpgrade.GetComponent<TreasureControl>();
 
-            if (pMovement.clawMode == true)
+            switch (treasureType.reward)
             {
-                if (treasureType.reward == PlayerUpgrades.Upgrades.torchUpgrade)
-                {
+                case PlayerUpgrades.Upgrades.torchRange:
                     pStats.UpgradeTorchRange();
-                }
-
-                if(treasureType.reward == PlayerUpgrades.Upgrades.hullUpgrade)
-                {
+                    break;
+                case PlayerUpgrades.Upgrades.torchDuraion:
+                    pStats.UpgradeTorchDuration();
+                    break;
+                case PlayerUpgrades.Upgrades.sonarRange:
+                    pStats.UpgradeSonarRange();
+                    break;
+                case PlayerUpgrades.Upgrades.sonarSpeed:
+                    break;
+                case PlayerUpgrades.Upgrades.hullDuribilty:
+                    pStats.UpgradeHullDurability();
+                    break;
+                case PlayerUpgrades.Upgrades.hullHealth:
                     pStats.UpgradeHullHealth();
-                }
-
-                if (treasureType.reward == PlayerUpgrades.Upgrades.moveSpdMod)
-                {
+                    break;
+                case PlayerUpgrades.Upgrades.moveSpdMod:
                     pStats.UpgradeMoveSpeed();
-                }
-
-                if(treasureType.reward == PlayerUpgrades.Upgrades.mapZone1)
-                {
-                    //insert method here
-                }
-
-                if (treasureType.reward == PlayerUpgrades.Upgrades.mapZone2)
-                {
-                    //insert method here
-                }
-
-                if (treasureType.reward == PlayerUpgrades.Upgrades.mapZone3)
-                {
-                    //insert method here
-                }
-
-                if (treasureType.reward == PlayerUpgrades.Upgrades.mapZone4)
-                {
-                    //insert method here
-                }
-
-                pMovement.clawMode = false;
-                iKManager.clawMode = false;
+                    break;
+                default:
+                    break;
             }
         }
-
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Treasure")
+        if (other.tag == "Treasure")
         {
             Debug.Log("Colliding with treasure");        
             triggeringUpgrade = other.gameObject;
@@ -94,7 +72,7 @@ public class Claw : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if(other.tag == "Treasure")
+        if (other.tag == "Treasure")
         {
             Debug.Log("Leaving treasure");
             triggeringUpgrade = null;
