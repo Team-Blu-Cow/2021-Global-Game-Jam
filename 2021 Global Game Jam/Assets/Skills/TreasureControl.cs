@@ -38,6 +38,7 @@ public class TreasureControl : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (displayText)
+                StopAllCoroutines();
                 StartCoroutine(displayText.TypeSentance(customDialog, 0.1f));
 
             foreach (GameObject obj in ping)
