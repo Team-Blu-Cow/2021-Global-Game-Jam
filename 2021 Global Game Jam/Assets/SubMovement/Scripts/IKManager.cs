@@ -14,7 +14,9 @@ public class IKManager : MonoBehaviour
     private Rigidbody2D subrb;
 
     public MasterInput controls;
-    public Vector3 mousePos;
+    public Vector3 cursorPos;
+    public Transform cursorTransform;
+    public CursorController cursorObject;
 
     public float m_threshold = 0.05f;
     private float m_rate = 10.0f;
@@ -25,7 +27,7 @@ public class IKManager : MonoBehaviour
     private void Awake()
     {
         controls = new MasterInput();
-        controls.PlayerControls.MousePos.performed += ctx => TargetMouse(ctx.ReadValue<Vector2>());
+        //controls.PlayerControls.MousePos.performed += ctx => TargetMouse(ctx.ReadValue<Vector2>());
         controls.PlayerControls.Claw.started += ctx => EnableClawMode();
     }
 
@@ -47,6 +49,8 @@ public class IKManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        cursorPos = cursorTransform.position;
+
         Vector3 target;
         if(clawMode == false)
         {
@@ -54,7 +58,7 @@ public class IKManager : MonoBehaviour
         }
         else
         {
-            target = mousePos;
+            target = cursorPos;
         }
 
         for (int i = 0; i < m_steps; i++)
@@ -83,7 +87,7 @@ public class IKManager : MonoBehaviour
         }
         else
         {
-            target = mousePos;
+            target = cursorPos;
         }
 
         float deltaTheta = 0.01f;
@@ -103,15 +107,14 @@ public class IKManager : MonoBehaviour
         return Vector2.Distance(_point1, _point2);
     }
 
-    void TargetMouse(Vector2 position)
-    {
-        Vector2 worldPos;
-        worldPos = Camera.main.ScreenToWorldPoint(position);
-        mousePos = new Vector3(worldPos.x, worldPos.y, 1);
-    }
-
     void EnableClawMode()
     {
         clawMode = !clawMode;
+        if (clawMode == false)
+            cursorObject.mousePos = subrb.position;
+        else
+            cursorObject.mousePos = subrb.position + new Vector2(2,-1);
+
+        cursorObject.SetRender(clawMode);
     }
 }
