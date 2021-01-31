@@ -15,13 +15,11 @@ public class PlayerStats : MonoBehaviour
     public float hullCurrentHealth;
     public float moveSpeed;
 
-    private PlayerUpgrades upgrades;
     private PlayerMovement pMovement;
 
     public Light2D pLight;
     private PlayerLight playerLight;
 
-    public GameObject sonarSystem;
     private SonarScan sonarScan;
 
     public minimap.MaskComputeShaderObject csObject;
@@ -50,14 +48,15 @@ public class PlayerStats : MonoBehaviour
         hullMaxHealth = 100.0f;
         hullCurrentHealth = 100.0f;
         hullDurability = 10.0f;
-        pMovement = GetComponent<PlayerMovement>();
-        upgrades = GetComponent<PlayerUpgrades>();        
+        pMovement = GetComponent<PlayerMovement>();   
 
         playerLight = pLight.GetComponent<PlayerLight>();
-        sonarScan = sonarSystem.GetComponent<SonarScan>();
-        shieldTexture = sub_shield.GetComponent<SpriteRenderer>();
+        sonarScan = GetComponentInChildren<SonarScan>();
+
         backLight = lightUpgrade.GetComponentInChildren<Light2D>();
+
         lightTexture = lightUpgrade.GetComponentInChildren<SpriteRenderer>();
+        shieldTexture = sub_shield.GetComponent<SpriteRenderer>();
         sonarTexture = sonarUpgrade.GetComponentInChildren<SpriteRenderer>();
     }
 
@@ -80,22 +79,18 @@ public class PlayerStats : MonoBehaviour
         sonarRange = sonarScan.scanRadius;
     }
 
-    public void UpgradeTorchRange()
+    public void UpgradeTorch()
     {
         backLight.enabled = true;
         lightTexture.enabled = true;
         playerLight.range = 4.5f;
-    }
-
-    public void UpgradeTorchDuration()
-    {
-        playerLight.onDuration = 100.0f;
+        playerLight.onDuration = 10.0f;
     }
 
     public void UpgradeHullHealth()
     {        
         shieldTexture.enabled = true;
-        hullCurrentHealth = hullCurrentHealth + 50.0f;
+        hullCurrentHealth += 50.0f;
         hullMaxHealth = 150.0f;
     }
 
@@ -108,11 +103,6 @@ public class PlayerStats : MonoBehaviour
     {
         sonarTexture.enabled = true;
         sonarScan.scanRadius = 10;
-    }
-
-    public void UpgradeHullDurability()
-    {
-        hullDurability = 20.0f;
     }
 
     public void UnlockMapArea(int index)
@@ -134,34 +124,32 @@ public class PlayerStats : MonoBehaviour
         }
 
         csObject.CreateNewTexture();
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("WE HAVE BEEN HIT");
             hullCurrentHealth -= 25;
             if (hullCurrentHealth <= 0)
             {
                 GameObject.Find("LevelLoader").GetComponent<LevelLoader>().SwitchScene("Game Over");
             }
         }
-        else if (collision.gameObject.tag == "Treasure")
+        else if (collision.gameObject.CompareTag("Treasure"))
         {
             TreasureControl treasureType = collision.gameObject.GetComponent<TreasureControl>();
 
             switch (treasureType.reward)
             {
                 case PlayerUpgrades.Upgrades.torchUpgrade:
-                    UpgradeTorchRange();
+                    UpgradeTorch();
                     break;
                 case PlayerUpgrades.Upgrades.sonarUpgrade:
-                    //
+                    UpgradeSonarRange();
                     break;
                 case PlayerUpgrades.Upgrades.hullUpgrade:
-                    UpgradeSonarRange();
+                    UpgradeHullHealth();
                     break;
                 case PlayerUpgrades.Upgrades.mapZone1:
                     UnlockMapArea(1);
@@ -182,10 +170,7 @@ public class PlayerStats : MonoBehaviour
                     break;
             }
         }
-        
-
     }
-
 
     void OnRepair()
     {
