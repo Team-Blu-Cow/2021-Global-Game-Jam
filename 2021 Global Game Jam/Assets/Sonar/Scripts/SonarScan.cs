@@ -9,8 +9,12 @@ public class SonarScan : MonoBehaviour
 
     [Header("Instatiate objects")]
     public ParticleSystem particleSystem;
-    public GameObject drawObject;
+    public GameObject drawScan;
+    public GameObject drawPing;
     public Transform canvas;
+
+    [Header("Constant pings")]
+    public GameObject[] pings;
 
     public float scanDelay = 2;
 
@@ -24,6 +28,11 @@ public class SonarScan : MonoBehaviour
     {
         controls = new MasterInput();
         controls.PlayerControls.Sonar.performed += ctx => Scan();
+
+        foreach (GameObject ping in pings)
+        {
+            StartCoroutine(constantDraw(ping.transform.position, 7));
+        }
     }
 
     private void Update()
@@ -53,7 +62,6 @@ public class SonarScan : MonoBehaviour
             {
                 if (hitCollider.gameObject.CompareTag("Treasure"))
                 {
-                    Debug.Log(hitCollider.gameObject.name);
                     float dist = Vector3.Distance(transform.position, hitCollider.transform.position); // dist to treasure
                     float delay = dist / (scanRadius / (float)particleSystem.simulationSpace);
                     StartCoroutine(hitCollider.GetComponent<TreasureControl>().Flash(delay)); // Start a deleyed flash to light up the treasure depending on distance
@@ -80,8 +88,22 @@ public class SonarScan : MonoBehaviour
         // Draw to miniMap
         Vector3 mapPos = map.TranslateWorldToMapPosition(treasurePos);
 
-        GameObject treasureMap = Instantiate(drawObject, mapPos, transform.rotation, canvas);
+        GameObject treasureMap = Instantiate(drawScan, mapPos, transform.rotation, canvas);
         treasureMap.GetComponent<RectTransform>().anchoredPosition = mapPos;
+    }
+    
+    IEnumerator constantDraw(Vector3 treasurePos, float delay)
+    {
+        while (true)
+        {
+            // Draw to miniMap
+            Vector3 mapPos = map.TranslateWorldToMapPosition(treasurePos);
+
+            GameObject treasureMap = Instantiate(drawPing, mapPos, transform.rotation, canvas);
+            treasureMap.GetComponent<RectTransform>().anchoredPosition = mapPos;
+
+            yield return new WaitForSeconds(delay);
+        }
     }
 
     private void OnDrawGizmos()

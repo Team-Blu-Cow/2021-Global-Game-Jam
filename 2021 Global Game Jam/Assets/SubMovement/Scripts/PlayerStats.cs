@@ -25,6 +25,15 @@ public class PlayerStats : MonoBehaviour
     private SonarScan sonarScan;
 
     public minimap.MaskComputeShaderObject csObject;
+    public GameObject sub_shield;
+    private SpriteRenderer shieldTexture;
+
+    public GameObject lightUpgrade;
+    private Light2D backLight;
+    private SpriteRenderer lightTexture;
+
+    public GameObject sonarUpgrade;
+    private SpriteRenderer sonarTexture;
 
     public MasterInput controls;
 
@@ -42,10 +51,14 @@ public class PlayerStats : MonoBehaviour
         hullCurrentHealth = 100.0f;
         hullDurability = 10.0f;
         pMovement = GetComponent<PlayerMovement>();
-        upgrades = GetComponent<PlayerUpgrades>();
+        upgrades = GetComponent<PlayerUpgrades>();        
 
         playerLight = pLight.GetComponent<PlayerLight>();
         sonarScan = sonarSystem.GetComponent<SonarScan>();
+        shieldTexture = sub_shield.GetComponent<SpriteRenderer>();
+        backLight = lightUpgrade.GetComponentInChildren<Light2D>();
+        lightTexture = lightUpgrade.GetComponentInChildren<SpriteRenderer>();
+        sonarTexture = sonarUpgrade.GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -69,6 +82,8 @@ public class PlayerStats : MonoBehaviour
 
     public void UpgradeTorchRange()
     {
+        backLight.enabled = true;
+        lightTexture.enabled = true;
         playerLight.range = 4.5f;
     }
 
@@ -78,7 +93,8 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void UpgradeHullHealth()
-    {
+    {        
+        shieldTexture.enabled = true;
         hullCurrentHealth = hullCurrentHealth + 50.0f;
         hullMaxHealth = 150.0f;
     }
@@ -90,6 +106,7 @@ public class PlayerStats : MonoBehaviour
 
     public void UpgradeSonarRange()
     {
+        sonarTexture.enabled = true;
         sonarScan.scanRadius = 10;
     }
 
@@ -127,6 +144,37 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("WE HAVE BEEN HIT");
             hullCurrentHealth -= 25;
         }
+        else if (collision.gameObject.tag == "Treasure")
+        {
+            TreasureControl treasureType = collision.gameObject.GetComponent<TreasureControl>();
+
+            switch (treasureType.reward)
+            {
+                case PlayerUpgrades.Upgrades.torchRange:
+                    UpgradeTorchRange();
+                    break;
+                case PlayerUpgrades.Upgrades.torchDuraion:
+                    UpgradeTorchDuration();
+                    break;
+                case PlayerUpgrades.Upgrades.sonarRange:
+                    UpgradeSonarRange();
+                    break;
+                case PlayerUpgrades.Upgrades.sonarSpeed:
+                    break;
+                case PlayerUpgrades.Upgrades.hullDuribilty:
+                    UpgradeHullDurability();
+                    break;
+                case PlayerUpgrades.Upgrades.hullHealth:
+                    UpgradeHullHealth();
+                    break;
+                case PlayerUpgrades.Upgrades.moveSpdMod:
+                    UpgradeMoveSpeed();
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 
     void OnRepair()
