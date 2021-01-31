@@ -68,6 +68,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Repair",
+                    "type": "Value",
+                    "id": "9c073645-8fa5-44cf-a72c-f3c1b7fd7b82",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -184,7 +192,7 @@
                 {
                     "name": "",
                     "id": "00718c55-990f-497b-9e1e-2e911854dc9b",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -299,6 +307,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "CursorMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9e2c45d-cf77-4b38-a0a5-8fe9af21acab",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard+Mouse",
+                    "action": "Repair",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b256d853-4e32-4f2f-8cb3-e50367da542e",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Repair",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
