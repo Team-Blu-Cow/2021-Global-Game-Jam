@@ -11,8 +11,9 @@ public class PlayerLight : MonoBehaviour
     public float range = 2.5f;
 
     [Header ("Light variables")]
-    public float delayOn = 0.5f;
     public float deadZone = 0.0f;
+
+    private float delayOn = 0.5f;
 
     bool lightOn;
     float time;

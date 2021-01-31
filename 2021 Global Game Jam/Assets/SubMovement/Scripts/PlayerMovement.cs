@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.U2D.IK;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -10,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
 
     public MasterInput controls;
+    public CursorController cursorObject;
+    public Transform clawTarget;
 
     Vector2 movement;
     Vector2 drag;
@@ -60,6 +63,15 @@ public class PlayerMovement : MonoBehaviour
 
     void OnEnteringClawMode()
     {
+        GetComponentInChildren<CCDSolver2D>().solveFromDefaultPose = clawMode;
+
         clawMode = !clawMode;
+
+        cursorObject.SetRender(clawMode);
+        if (!clawMode)
+        {
+            clawTarget.localPosition = new Vector3(-1.7f,-5.5f,0);
+            
+        }
     }
 }

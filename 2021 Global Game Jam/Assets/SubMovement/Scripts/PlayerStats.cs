@@ -14,7 +14,6 @@ public class PlayerStats : MonoBehaviour
     public float hullHealth = 100.0f; // 
     public float moveSpeed;
 
-    public GameObject submarine;
     private PlayerUpgrades upgrades;
     private PlayerMovement pMovement;
 
@@ -27,8 +26,8 @@ public class PlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pMovement = submarine.GetComponent<PlayerMovement>();
-        upgrades = submarine.GetComponent<PlayerUpgrades>();
+        pMovement = GetComponent<PlayerMovement>();
+        upgrades = GetComponent<PlayerUpgrades>();
         playerLight = pLight.GetComponent<PlayerLight>();
         sonarScan = sonarSystem.GetComponent<SonarScan>();
     }

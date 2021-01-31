@@ -4,37 +4,28 @@ using UnityEngine;
 
 public class Claw : MonoBehaviour
 {
-    public Rigidbody2D rb;
-
     bool triggeringWithUpgrade = false;
     GameObject triggeringUpgrade;
 
     public GameObject sub;
+    public Transform pickupPos;
+
     private PlayerStats pStats;
     private PlayerMovement pMovement;
-    
-    public GameObject iKManagerObject;
-    private IKManager iKManager;
 
     // Start is called before the first frame update
     void Start()
     {
         pStats = sub.GetComponent<PlayerStats>();
         pMovement = sub.GetComponent<PlayerMovement>();
-        iKManager = iKManagerObject.GetComponent<IKManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        transform.position = GetComponent<Transform>().parent.position;
-        
-
         if(triggeringWithUpgrade == true && triggeringUpgrade)
         {
-            Rigidbody2D upgrade_rb = triggeringUpgrade.GetComponent<Rigidbody2D>();
-            upgrade_rb.position = rb.position;
+            triggeringUpgrade.GetComponent<Rigidbody2D>().position = pickupPos.position;
 
             TreasureControl treasureType = triggeringUpgrade.GetComponent<TreasureControl>();
 
@@ -71,7 +62,6 @@ public class Claw : MonoBehaviour
                 }
 
                 pMovement.clawMode = false;
-                iKManager.clawMode = false;
             }
         }
 
@@ -79,7 +69,7 @@ public class Claw : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Treasure")
+        if (other.tag == "Treasure")
         {
             Debug.Log("Colliding with treasure");        
             triggeringUpgrade = other.gameObject;
@@ -89,7 +79,7 @@ public class Claw : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if(other.tag == "Treasure")
+        if (other.tag == "Treasure")
         {
             Debug.Log("Leaving treasure");
             triggeringUpgrade = null;
