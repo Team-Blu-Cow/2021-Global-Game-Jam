@@ -13,13 +13,14 @@ public class PlayerMovement : MonoBehaviour
     public MasterInput controls;
     public CursorController cursorObject;
     public Transform clawTarget;
-    public Transform claw_effector;
 
     Vector2 movement;
     Vector2 drag;
 
     float startTime;
     float journeyLength;
+
+    bool animating = false;
 
     public bool clawMode = false;
 
@@ -42,15 +43,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
-    {
-        //new Vector3(-1.7f, -5.5f, 0)
-        //new Vector3(0.0f, 3.0f, 0.0f)
-        
-
-        if (!clawMode)
-        {
-
-            
+    {        
+        if (animating)
+        {            
             float distanceCovered = (Time.time - startTime) * 0.1f;
             float fractionOfJourney = distanceCovered / journeyLength;
 
@@ -60,10 +55,13 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-
-                GetComponentInChildren<CCDSolver2D>().solveFromDefaultPose = true;                
-                
+                GetComponentInChildren<CCDSolver2D>().solveFromDefaultPose = true;                                
                 clawTarget.localPosition = Vector3.Lerp(clawTarget.localPosition, new Vector3(-1.7f, -5.5f, 0), fractionOfJourney);
+            }
+
+            if(clawTarget.localPosition == new Vector3(-1.7f, -5.5f, 0))
+            {
+                animating = false;
             }
         }
         
@@ -98,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         GetComponentInChildren<CCDSolver2D>().solveFromDefaultPose = false;
 
         clawMode = !clawMode;
+        animating = !clawMode; 
 
         if(!clawMode)
         {
