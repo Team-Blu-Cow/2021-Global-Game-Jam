@@ -39,8 +39,8 @@ public class PlayerStats : MonoBehaviour
         hullMaxHealth = 100.0f;
         hullCurrentHealth = 100.0f;
         hullDurability = 10.0f;
-        pMovement = submarine.GetComponent<PlayerMovement>();
-        upgrades = submarine.GetComponent<PlayerUpgrades>();
+        pMovement = GetComponent<PlayerMovement>();
+        upgrades = GetComponent<PlayerUpgrades>();
 
         playerLight = pLight.GetComponent<PlayerLight>();
         sonarScan = sonarSystem.GetComponent<SonarScan>();
