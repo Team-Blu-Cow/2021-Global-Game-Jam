@@ -361,6 +361,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130925734}
     m_Modifications:
+    - target: {fileID: 3907790894073039529, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
+      propertyPath: m_LightCookieSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f61e91d7db2f65e4999d8d6f4c3c4d82, type: 3}
     - target: {fileID: 3907790894651432184, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
       propertyPath: sonar
       value: 
@@ -628,6 +632,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130925734}
     m_Modifications:
+    - target: {fileID: 3907790894073039529, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
+      propertyPath: m_LightCookieSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 28cb014de2cb2ec4f83ef1c3668bf56d, type: 3}
     - target: {fileID: 3907790894651432184, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
       propertyPath: sonar
       value: 
@@ -2786,6 +2794,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130925734}
     m_Modifications:
+    - target: {fileID: 3907790894073039529, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
+      propertyPath: m_LightCookieSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f61e91d7db2f65e4999d8d6f4c3c4d82, type: 3}
     - target: {fileID: 3907790894651432184, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
       propertyPath: sonar
       value: 
@@ -3156,6 +3168,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130925734}
     m_Modifications:
+    - target: {fileID: 3907790894073039529, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
+      propertyPath: m_LightCookieSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f61e91d7db2f65e4999d8d6f4c3c4d82, type: 3}
     - target: {fileID: 3907790894651432184, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
       propertyPath: sonar
       value: 
@@ -4391,6 +4407,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130925734}
     m_Modifications:
+    - target: {fileID: 3907790894073039529, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
+      propertyPath: m_LightCookieSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f61e91d7db2f65e4999d8d6f4c3c4d82, type: 3}
     - target: {fileID: 3907790894651432184, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
       propertyPath: sonar
       value: 
@@ -5176,6 +5196,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6291593050546985568, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
+      propertyPath: m_Intensity
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6291593050546985581, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -5195,6 +5219,10 @@ PrefabInstance:
     - target: {fileID: 6291593050814364372, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291593050814364395, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
+      propertyPath: m_Intensity
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6291593050872745568, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
@@ -5227,6 +5255,10 @@ PrefabInstance:
     - target: {fileID: 6291593051354277062, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291593051354277063, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
+      propertyPath: m_Intensity
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6291593051458836321, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
@@ -5298,7 +5330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6291593051691282810, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: moveSpeed
-      value: 100
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6291593051749734515, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
@@ -5336,9 +5368,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6291593052109610628, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
+      propertyPath: m_Intensity
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6291593052265068080, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291593052265068081, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6291593052313936096, guid: f15e49bd18f970a46aa510555da7a2c8, type: 3}
       propertyPath: m_Layer
@@ -6050,6 +6090,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130925734}
     m_Modifications:
+    - target: {fileID: 3907790894073039529, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
+      propertyPath: m_LightCookieSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 28cb014de2cb2ec4f83ef1c3668bf56d, type: 3}
     - target: {fileID: 3907790894651432184, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
       propertyPath: sonar
       value: 
@@ -15172,6 +15216,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130925734}
     m_Modifications:
+    - target: {fileID: 3907790894073039529, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
+      propertyPath: m_LightCookieSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 28cb014de2cb2ec4f83ef1c3668bf56d, type: 3}
     - target: {fileID: 3907790894651432184, guid: a169b7a58cbb70e4b9dbc92c1155264d, type: 3}
       propertyPath: sonar
       value: 
