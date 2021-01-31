@@ -62,9 +62,8 @@ public class Claw : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Treasure")
+        if (other.CompareTag("Treasure"))
         {
-            Debug.Log("Colliding with treasure");        
             triggeringUpgrade = other.gameObject;
             triggeringWithUpgrade = true;
         }
@@ -72,9 +71,8 @@ public class Claw : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Treasure")
+        if (other.CompareTag("Treasure"))
         {
-            Debug.Log("Leaving treasure");
             triggeringUpgrade = null;
             triggeringWithUpgrade = false;
         }
