@@ -15,8 +15,6 @@ public class PlayerStats : MonoBehaviour
     public float hullCurrentHealth;
     public float moveSpeed;
 
-
-    public GameObject submarine;
     private PlayerUpgrades upgrades;
     private PlayerMovement pMovement;
 
@@ -43,6 +41,7 @@ public class PlayerStats : MonoBehaviour
         hullDurability = 10.0f;
         pMovement = submarine.GetComponent<PlayerMovement>();
         upgrades = submarine.GetComponent<PlayerUpgrades>();
+
         playerLight = pLight.GetComponent<PlayerLight>();
         sonarScan = sonarSystem.GetComponent<SonarScan>();
     }

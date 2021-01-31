@@ -49,7 +49,8 @@ public class CursorController : MonoBehaviour
     private void Update()
     {
         mousePos += moveDir;
-        thisTransform.position = mousePos;
+        if (render)
+            thisTransform.position = mousePos;
     }
 
     public void setPos(Vector3 pos)
