@@ -7,18 +7,15 @@ namespace minimap
     public class MapManager : MonoBehaviour
     {
         // PUBLIC/SERIALIZED MEMBERS **************************************************************
-        [Header("Map dimensions")]
-        [SerializeField] public float mapWidth;
-        [SerializeField] public float mapHeight;
-        public Vector3 playerIconPos;
+        [HideInInspector] public float mapWidth;
+        [HideInInspector] public float mapHeight;
+        [HideInInspector] public Vector3 playerIconPos;
 
         [Header("Map Public References")]
         public Transform playerTransform;
         public RectTransform mapTransform;
         public RectTransform playerIconTransform;
-
-        // PRIVATE MEMBERS ************************************************************************
-        SpriteRenderer spriteRenderer;
+        public SpriteRenderer spriteRenderer;
 
         void Awake()
         {
@@ -27,8 +24,6 @@ namespace minimap
 
         void setMapSize()
         {
-            if (spriteRenderer == null)
-                spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             mapWidth = spriteRenderer.bounds.size.x;
             mapHeight = spriteRenderer.bounds.size.y;
         }

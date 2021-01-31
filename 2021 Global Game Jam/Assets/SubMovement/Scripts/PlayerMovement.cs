@@ -41,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
     {
         drag = -rb.velocity * 0.5f;
 
+        Vector3 theScale = transform.localScale;
+        float sign_direction = Mathf.Sign(rb.velocity.x);
+        theScale.x = 0.1f * -sign_direction;
+        transform.localScale = theScale;
+
         if (clawMode == false)
         {          
             rb.AddForce((movement * moveSpeed * Time.fixedDeltaTime) + drag);
@@ -59,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     void OnStopMove(Vector2 direction)
     {
         movement = direction;
-    }
+         }
 
     void OnEnteringClawMode()
     {

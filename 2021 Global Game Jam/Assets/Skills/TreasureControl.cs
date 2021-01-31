@@ -7,7 +7,7 @@ using UnityEngine;
 public class TreasureControl : MonoBehaviour
 {
 
-    public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchUpgrade;
+    public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.mapZone1;
     
     [Header("Ping")]
     public List<GameObject> ping;
@@ -38,8 +38,10 @@ public class TreasureControl : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (displayText)
+            {
                 StopAllCoroutines();
                 StartCoroutine(displayText.TypeSentance(customDialog, 0.1f));
+            }
 
             foreach (GameObject obj in ping)
             {
