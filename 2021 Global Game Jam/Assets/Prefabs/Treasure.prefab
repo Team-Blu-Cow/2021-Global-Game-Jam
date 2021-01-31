@@ -175,7 +175,8 @@ MonoBehaviour:
   - {fileID: 0}
   sonar: {fileID: 0}
   displayText: {fileID: 0}
-  customDialog: Testing cumston dialog
+  customDialog: []
+  textDelay: []
 --- !u!61 &3907790894651432191
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -222,4 +223,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
