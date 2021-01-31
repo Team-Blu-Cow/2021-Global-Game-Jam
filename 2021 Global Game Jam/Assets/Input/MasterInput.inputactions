@@ -46,14 +46,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Claw",
-                    "type": "Button",
-                    "id": "8afa5485-17b3-42a2-9614-69da24f3c381",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Dialogue",
                     "type": "Button",
                     "id": "2b0c4088-edc2-4f07-a389-eebbd3a40395",
@@ -159,7 +151,7 @@
                 {
                     "name": "",
                     "id": "cd179fe3-9128-4c66-ae35-0c7d7770080a",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard+Mouse",
@@ -181,7 +173,7 @@
                 {
                     "name": "",
                     "id": "59f1e95a-7989-41e6-b873-d254f579606d",
-                    "path": "<Keyboard>/l",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard+Mouse",
@@ -230,28 +222,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dfa8b0bb-c3be-4c0c-be1c-a6d97ca684b1",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard+Mouse",
-                    "action": "Claw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "898e9543-4d8d-4955-8b71-988f67400794",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Claw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

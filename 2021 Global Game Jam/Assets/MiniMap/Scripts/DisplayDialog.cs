@@ -44,7 +44,7 @@ public class DisplayDialog : MonoBehaviour
     {
         sentances.Clear();
 
-        LeanTween.move(gameObject, new Vector3(transform.position.x, -30,0), 1);
+        LeanTween.move(gameObject, new Vector3(transform.position.x, -100,0), 1);
 
         foreach(string sentance in customDialog)
         {
