@@ -1046,6 +1046,7 @@ MonoBehaviour:
   mapTransform: {fileID: 1058868915}
   playerIconTransform: {fileID: 395848933}
   spriteRenderer: {fileID: 1979871183}
+  globalLight: {fileID: 991622639}
 --- !u!1 &314905269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,6 +1885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 991622640}
   - component: {fileID: 991622639}
+  - component: {fileID: 991622641}
   m_Layer: 0
   m_Name: Global Light 2D
   m_TagString: Untagged
@@ -1946,6 +1948,18 @@ Transform:
   m_Father: {fileID: 2048844398}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &991622641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991622638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a014953f0a3e01a4989aad2e390792f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1053396792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,7 +2011,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 168374fe4b80e7f4a9ffe4ec6d0d0b5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3710,7 +3724,7 @@ EdgeCollider2D:
   - {x: -33.647156, y: -12.993751}
   - {x: -33.32328, y: -13.381443}
   - {x: -33.308113, y: -13.777315}
-  - {x: -32.948566, y: -14.508207}
+  - {x: -33.203785, y: -14.469925}
   - {x: -34.10796, y: -14.932253}
   - {x: -34.346733, y: -15.07601}
   - {x: -34.555164, y: -15.007935}
@@ -4011,8 +4025,8 @@ EdgeCollider2D:
   - {x: -29.017365, y: -15.308392}
   - {x: -29.39328, y: -15.042957}
   - {x: -29.552658, y: -15.170763}
-  - {x: -30.506077, y: -15.160004}
-  - {x: -30.402374, y: -14.449045}
+  - {x: -30.329552, y: -15.160004}
+  - {x: -30.249245, y: -14.468186}
   - {x: -30.085896, y: -14.245867}
   - {x: -29.736729, y: -13.892887}
   - {x: -29.674252, y: -13.544481}
