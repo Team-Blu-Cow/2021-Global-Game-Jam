@@ -1971,7 +1971,7 @@ GameObject:
   - component: {fileID: 1053396793}
   - component: {fileID: 1053396794}
   - component: {fileID: 1053396795}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ruins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5002,7 +5002,7 @@ GameObject:
   - component: {fileID: 2095475889}
   - component: {fileID: 2095475890}
   - component: {fileID: 2095475891}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: creature_skull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
