@@ -100,6 +100,11 @@ public class MonsterPathfinderControlScript : MonoBehaviour
     private void Update()
     {
         // graphics here
+        Vector3  scale =  Monster.GetComponent<Transform>().localScale;
+
+        scale.x = Mathf.Abs(Monster.GetComponent<Transform>().localScale.x) * Mathf.Sign(monsterRB.velocity.x);
+
+        Monster.GetComponent<Transform>().localScale = scale;
     }
 
     private bool atEndOfPath()
