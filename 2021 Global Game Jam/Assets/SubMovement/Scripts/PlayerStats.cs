@@ -150,22 +150,26 @@ public class PlayerStats : MonoBehaviour
 
             switch (treasureType.reward)
             {
-                case PlayerUpgrades.Upgrades.torchRange:
+                case PlayerUpgrades.Upgrades.torchUpgrade:
                     UpgradeTorchRange();
                     break;
-                case PlayerUpgrades.Upgrades.torchDuraion:
-                    UpgradeTorchDuration();
+                case PlayerUpgrades.Upgrades.sonarUpgrade:
+                    //
                     break;
-                case PlayerUpgrades.Upgrades.sonarRange:
+                case PlayerUpgrades.Upgrades.hullUpgrade:
                     UpgradeSonarRange();
                     break;
-                case PlayerUpgrades.Upgrades.sonarSpeed:
+                case PlayerUpgrades.Upgrades.mapZone1:
+                    UnlockMapArea(1);
                     break;
-                case PlayerUpgrades.Upgrades.hullDuribilty:
-                    UpgradeHullDurability();
+                case PlayerUpgrades.Upgrades.mapZone2:
+                    UnlockMapArea(2);
                     break;
-                case PlayerUpgrades.Upgrades.hullHealth:
-                    UpgradeHullHealth();
+                case PlayerUpgrades.Upgrades.mapZone3:
+                    UnlockMapArea(3);
+                    break;
+                case PlayerUpgrades.Upgrades.mapZone4:
+                    UnlockMapArea(4);
                     break;
                 case PlayerUpgrades.Upgrades.moveSpdMod:
                     UpgradeMoveSpeed();
@@ -174,8 +178,10 @@ public class PlayerStats : MonoBehaviour
                     break;
             }
         }
+        
 
     }
+
 
     void OnRepair()
     {

@@ -36,7 +36,7 @@ namespace minimap
             setMapSize();
             playerIconPos = TranslateWorldToMapPosition(playerTransform.position);
 
-            globalLight.intensity = NormaliseMapCoords(playerTransform.position).y*1.1f;
+            globalLight.intensity = NormaliseMapCoords(playerTransform.position).y * 0.5f;
 
             playerIconTransform.anchoredPosition = new Vector2(playerIconPos.x, playerIconPos.y);
             
