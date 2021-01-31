@@ -23,48 +23,41 @@ public class Claw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.localPosition = new Vector3();
+        transform.localRotation = new Quaternion();
+
         if(triggeringWithUpgrade == true && triggeringUpgrade)
         {
             triggeringUpgrade.GetComponent<Rigidbody2D>().position = pickupPos.position;
 
             TreasureControl treasureType = triggeringUpgrade.GetComponent<TreasureControl>();
 
-            if (pMovement.clawMode == true)
+            switch (treasureType.reward)
             {
-                if (treasureType.reward == PlayerUpgrades.Upgrades.torchRange)
-                {
+                case PlayerUpgrades.Upgrades.torchRange:
                     pStats.UpgradeTorchRange();
-                }
-
-                if (treasureType.reward == PlayerUpgrades.Upgrades.torchDuraion)
-                {
+                    break;
+                case PlayerUpgrades.Upgrades.torchDuraion:
                     pStats.UpgradeTorchDuration();
-                }
-
-                if(treasureType.reward == PlayerUpgrades.Upgrades.hullHealth)
-                {
-                    pStats.UpgradeHullHealth();
-                }
-
-                if (treasureType.reward == PlayerUpgrades.Upgrades.moveSpdMod)
-                {
-                    pStats.UpgradeMoveSpeed();
-                }
-
-                if(treasureType.reward == PlayerUpgrades.Upgrades.sonarRange)
-                {
+                    break;
+                case PlayerUpgrades.Upgrades.sonarRange:
                     pStats.UpgradeSonarRange();
-                }
-
-                if(treasureType.reward == PlayerUpgrades.Upgrades.hullDuribilty)
-                {
+                    break;
+                case PlayerUpgrades.Upgrades.sonarSpeed:
+                    break;
+                case PlayerUpgrades.Upgrades.hullDuribilty:
                     pStats.UpgradeHullDurability();
-                }
-
-                pMovement.clawMode = false;
+                    break;
+                case PlayerUpgrades.Upgrades.hullHealth:
+                    pStats.UpgradeHullHealth();
+                    break;
+                case PlayerUpgrades.Upgrades.moveSpdMod:
+                    pStats.UpgradeMoveSpeed();
+                    break;
+                default:
+                    break;
             }
         }
-
     }
 
     public void OnTriggerEnter2D(Collider2D other)

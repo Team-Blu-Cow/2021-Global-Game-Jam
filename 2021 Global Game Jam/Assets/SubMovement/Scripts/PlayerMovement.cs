@@ -70,8 +70,7 @@ public class PlayerMovement : MonoBehaviour
         cursorObject.SetRender(clawMode);
         if (!clawMode)
         {
-            clawTarget.localPosition = new Vector3(-1.7f,-5.5f,0);
-            
+            clawTarget.localPosition = new Vector3(-1.7f,-5.5f,0);            
         }
     }
 }
