@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Final Level/Final Scene.unity
     guid: 4c15c42e93e8928429cb065f5a35b55e
+  - enabled: 1
+    path: Assets/UI/Game Over.unity
+    guid: e1a523806c2be1e43b0d30af487af1f3
+  - enabled: 1
+    path: Assets/UI/WInScreen.unity
+    guid: 54f916ae4470d854489063f01653877e
   m_configObjects: {}

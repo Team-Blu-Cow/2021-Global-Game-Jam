@@ -532,7 +532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WIP TITLE
+  m_text: LOST IN DEPTHS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fc6e70a190249774f9ec5eaf8b925f01, type: 2}
   m_sharedMaterial: {fileID: 7178379076613349303, guid: fc6e70a190249774f9ec5eaf8b925f01, type: 2}
