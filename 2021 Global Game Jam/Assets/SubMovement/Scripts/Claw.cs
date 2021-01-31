@@ -40,17 +40,12 @@ public class Claw : MonoBehaviour
 
             if (pMovement.clawMode == true)
             {
-                if (treasureType.reward == PlayerUpgrades.Upgrades.torchRange)
+                if (treasureType.reward == PlayerUpgrades.Upgrades.torchUpgrade)
                 {
                     pStats.UpgradeTorchRange();
                 }
 
-                if (treasureType.reward == PlayerUpgrades.Upgrades.torchDuraion)
-                {
-                    pStats.UpgradeTorchDuration();
-                }
-
-                if(treasureType.reward == PlayerUpgrades.Upgrades.hullHealth)
+                if(treasureType.reward == PlayerUpgrades.Upgrades.hullUpgrade)
                 {
                     pStats.UpgradeHullHealth();
                 }
@@ -60,14 +55,24 @@ public class Claw : MonoBehaviour
                     pStats.UpgradeMoveSpeed();
                 }
 
-                if(treasureType.reward == PlayerUpgrades.Upgrades.sonarRange)
+                if(treasureType.reward == PlayerUpgrades.Upgrades.mapZone1)
                 {
-                    pStats.UpgradeSonarRange();
+                    //insert method here
                 }
 
-                if(treasureType.reward == PlayerUpgrades.Upgrades.hullDuribilty)
+                if (treasureType.reward == PlayerUpgrades.Upgrades.mapZone2)
                 {
-                    pStats.UpgradeHullDurability();
+                    //insert method here
+                }
+
+                if (treasureType.reward == PlayerUpgrades.Upgrades.mapZone3)
+                {
+                    //insert method here
+                }
+
+                if (treasureType.reward == PlayerUpgrades.Upgrades.mapZone4)
+                {
+                    //insert method here
                 }
 
                 pMovement.clawMode = false;

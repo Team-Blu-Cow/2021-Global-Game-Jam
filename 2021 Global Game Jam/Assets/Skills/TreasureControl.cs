@@ -7,7 +7,7 @@ using UnityEngine;
 public class TreasureControl : MonoBehaviour
 {
 
-    public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchRange;
+    public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchUpgrade;
     
     [Header("Ping")]
     public List<GameObject> ping;
