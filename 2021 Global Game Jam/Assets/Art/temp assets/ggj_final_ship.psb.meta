@@ -1292,7 +1292,7 @@ ScriptedImporter:
     - {x: 17, y: 39}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 1788, y: -564}
+    uvTransform: {x: 1787, y: -985}
   - name: arm_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -1301,7 +1301,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 2630
-      y: 737
+      y: 313
       width: 782
       height: 202
     spriteID: b50ef0eb5db3cca4fab5efb57387d065
@@ -1792,7 +1792,7 @@ ScriptedImporter:
     - {x: 40, y: 11}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 1881, y: 220}
+    uvTransform: {x: 1656, y: -603}
   - name: arm_3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -1800,8 +1800,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 3786
-      y: 489
+      x: 3582
+      y: 4
       width: 218
       height: 165
     spriteID: f90d7343606c8cd46a467bfd30fa4e5a
@@ -2104,7 +2104,7 @@ ScriptedImporter:
     - {x: 24, y: 0}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 3143, y: -45}
+    uvTransform: {x: 2540, y: -822}
   - name: hand_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -2112,8 +2112,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 3351
-      y: 4
+      x: 3582
+      y: 216
       width: 427
       height: 289
     spriteID: d4490a15ac18f194785e628e49cec8d5
@@ -2406,7 +2406,7 @@ ScriptedImporter:
     - {x: 24, y: 0}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 3093, y: -302}
+    uvTransform: {x: 2414, y: -599}
   - name: hand_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -2414,8 +2414,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 3786
-      y: 4
+      x: 3428
+      y: 313
       width: 199
       height: 477
     spriteID: 6f951dfc7eb1c4448870293fc14e9dd2
@@ -2719,7 +2719,7 @@ ScriptedImporter:
     - {x: 25, y: 0}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 3268, y: -98}
+    uvTransform: {x: 2253, y: -537}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
@@ -2759,28 +2759,28 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: b50ef0eb5db3cca4fab5efb57387d065
     layerID: 15
-    mosaicPosition: {x: 2630, y: 737}
+    mosaicPosition: {x: 2630, y: 313}
   - name: arm_3
     spriteName: arm_3
     isGroup: 0
     parentIndex: -1
     spriteID: f90d7343606c8cd46a467bfd30fa4e5a
     layerID: 17
-    mosaicPosition: {x: 3786, y: 489}
+    mosaicPosition: {x: 3582, y: 4}
   - name: hand_1
     spriteName: hand_1
     isGroup: 0
     parentIndex: -1
     spriteID: d4490a15ac18f194785e628e49cec8d5
     layerID: 18
-    mosaicPosition: {x: 3351, y: 4}
+    mosaicPosition: {x: 3582, y: 216}
   - name: hand_2
     spriteName: hand_2
     isGroup: 0
     parentIndex: -1
     spriteID: 6f951dfc7eb1c4448870293fc14e9dd2
     layerID: 19
-    mosaicPosition: {x: 3786, y: 4}
+    mosaicPosition: {x: 3428, y: 313}
   characterData:
     bones:
     - name: bone_1
