@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: IBMPlexMono-Regular SDF
+  m_Name: IBMPlexMono-Regular SDF-Dialog
   m_EditorClassIdentifier: 
   hashCode: -1993410494
   material: {fileID: 7178379076613349303}
@@ -2505,7 +2505,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: IBMPlexMono-Regular SDF Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: GLOW_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
