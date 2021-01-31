@@ -5,7 +5,7 @@ using UnityEngine;
 public class Claw : MonoBehaviour
 {
     bool triggeringWithUpgrade = false;
-    GameObject triggeringUpgrade;
+    public GameObject triggeringUpgrade;
 
     public GameObject sub;
     public Transform pickupPos;
