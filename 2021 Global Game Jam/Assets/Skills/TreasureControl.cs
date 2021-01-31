@@ -1,14 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Experimental.Rendering.Universal;
+using TMPro;
 using UnityEngine;
 
 public class TreasureControl : MonoBehaviour
 {
+
     public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchRange;
-    public string customDialog;
+    
+    [Header("Ping")]
     public List<GameObject> ping;
     public SonarScan sonar;
+
+    [Header("Dialog")]
+    public DisplayDialog displayText;
+    [TextArea(3,10)]
+    public string[] customDialog;
+
     float timer = 1;
 
     private void Update()
@@ -29,13 +38,19 @@ public class TreasureControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            if (displayText)
+                displayText.StartDialog(customDialog);
+
             foreach (GameObject obj in ping)
             {
                 Debug.Log(obj.name);
                 StartCoroutine(sonar.MapDraw(obj.transform.position, 0));
             }
 
-            Destroy(gameObject);
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+
+            Destroy(gameObject,20);
         }
     }
 

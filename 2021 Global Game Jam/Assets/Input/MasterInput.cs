@@ -73,6 +73,22 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""CursorMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""097a4402-1d71-4880-a93e-e87a760f88e9"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Repair"",
+                    ""type"": ""Value"",
+                    ""id"": ""9c073645-8fa5-44cf-a72c-f3c1b7fd7b82"",
+                    ""expectedControlType"": ""Integer"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -189,7 +205,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""00718c55-990f-497b-9e1e-2e911854dc9b"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -204,17 +220,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard+Mouse"",
-                    ""action"": ""MousePos"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3d60aa37-c4d3-495f-a631-2ac092197ef3"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
                     ""action"": ""MousePos"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -304,6 +309,39 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Dialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d60aa37-c4d3-495f-a631-2ac092197ef3"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CursorMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9e2c45d-cf77-4b38-a0a5-8fe9af21acab"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard+Mouse"",
+                    ""action"": ""Repair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b256d853-4e32-4f2f-8cb3-e50367da542e"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Repair"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -540,6 +578,8 @@ public class @MasterInput : IInputActionCollection, IDisposable
         m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
         m_PlayerControls_Claw = m_PlayerControls.FindAction("Claw", throwIfNotFound: true);
         m_PlayerControls_Dialogue = m_PlayerControls.FindAction("Dialogue", throwIfNotFound: true);
+        m_PlayerControls_CursorMove = m_PlayerControls.FindAction("CursorMove", throwIfNotFound: true);
+        m_PlayerControls_Repair = m_PlayerControls.FindAction("Repair", throwIfNotFound: true);
         // MenuNavigation
         m_MenuNavigation = asset.FindActionMap("MenuNavigation", throwIfNotFound: true);
         m_MenuNavigation_Select = m_MenuNavigation.FindAction("Select", throwIfNotFound: true);
@@ -603,6 +643,8 @@ public class @MasterInput : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Pause;
     private readonly InputAction m_PlayerControls_Claw;
     private readonly InputAction m_PlayerControls_Dialogue;
+    private readonly InputAction m_PlayerControls_CursorMove;
+    private readonly InputAction m_PlayerControls_Repair;
     public struct PlayerControlsActions
     {
         private @MasterInput m_Wrapper;
@@ -614,6 +656,8 @@ public class @MasterInput : IInputActionCollection, IDisposable
         public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
         public InputAction @Claw => m_Wrapper.m_PlayerControls_Claw;
         public InputAction @Dialogue => m_Wrapper.m_PlayerControls_Dialogue;
+        public InputAction @CursorMove => m_Wrapper.m_PlayerControls_CursorMove;
+        public InputAction @Repair => m_Wrapper.m_PlayerControls_Repair;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -644,6 +688,12 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Dialogue.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDialogue;
                 @Dialogue.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDialogue;
                 @Dialogue.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDialogue;
+                @CursorMove.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCursorMove;
+                @CursorMove.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCursorMove;
+                @CursorMove.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCursorMove;
+                @Repair.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRepair;
+                @Repair.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRepair;
+                @Repair.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRepair;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -669,6 +719,12 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Dialogue.started += instance.OnDialogue;
                 @Dialogue.performed += instance.OnDialogue;
                 @Dialogue.canceled += instance.OnDialogue;
+                @CursorMove.started += instance.OnCursorMove;
+                @CursorMove.performed += instance.OnCursorMove;
+                @CursorMove.canceled += instance.OnCursorMove;
+                @Repair.started += instance.OnRepair;
+                @Repair.performed += instance.OnRepair;
+                @Repair.canceled += instance.OnRepair;
             }
         }
     }
@@ -765,6 +821,8 @@ public class @MasterInput : IInputActionCollection, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnClaw(InputAction.CallbackContext context);
         void OnDialogue(InputAction.CallbackContext context);
+        void OnCursorMove(InputAction.CallbackContext context);
+        void OnRepair(InputAction.CallbackContext context);
     }
     public interface IMenuNavigationActions
     {

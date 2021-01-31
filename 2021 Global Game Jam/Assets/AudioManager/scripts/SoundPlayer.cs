@@ -10,4 +10,9 @@ public class SoundPlayer : MonoBehaviour
     {
         audioSource[index].Play();
     }
+
+    public void Stop(int index)
+    {
+        audioSource[index].Stop();
+    }
 }

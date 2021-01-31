@@ -8,25 +8,52 @@ public class PlayerStats : MonoBehaviour
 
     public float torchRange;
     public float torchDuration;
-    public float sonarRange;
+    public int sonarRange;
     public float sonarSpeed;
-    public float hullDurability; // Depth controller for the hull???
-    public float hullHealth = 100.0f; // 
+    public float hullDurability;
+    public float hullMaxHealth;
+    public float hullCurrentHealth;
     public float moveSpeed;
 
-    public GameObject submarine;
     private PlayerUpgrades upgrades;
     private PlayerMovement pMovement;
 
     public Light2D pLight;
     private PlayerLight playerLight;
 
+    public GameObject sonarSystem;
+    private SonarScan sonarScan;
+
+    public MasterInput controls;
+
+
+    private void Awake()
+    {
+        controls = new MasterInput();
+        controls.PlayerControls.Repair.started += ctx => OnRepair();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        pMovement = submarine.GetComponent<PlayerMovement>();
-        upgrades = submarine.GetComponent<PlayerUpgrades>();
+        hullMaxHealth = 100.0f;
+        hullCurrentHealth = 100.0f;
+        hullDurability = 10.0f;
+        pMovement = GetComponent<PlayerMovement>();
+        upgrades = GetComponent<PlayerUpgrades>();
+
         playerLight = pLight.GetComponent<PlayerLight>();
+        sonarScan = sonarSystem.GetComponent<SonarScan>();
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 
     // Update is called once per frame
@@ -34,6 +61,8 @@ public class PlayerStats : MonoBehaviour
     {
         torchRange = playerLight.range;
         torchDuration = playerLight.onDuration;
+        moveSpeed = pMovement.moveSpeed;
+        sonarRange = sonarScan.scanRadius;
     }
 
     public void UpgradeTorchRange()
@@ -43,11 +72,51 @@ public class PlayerStats : MonoBehaviour
 
     public void UpgradeTorchDuration()
     {
-        playerLight.onDuration = 10.0f;
+        playerLight.onDuration = 100.0f;
     }
 
     public void UpgradeHullHealth()
     {
-        hullHealth = 150.0f;
+        hullCurrentHealth = hullCurrentHealth + 50.0f;
+        hullMaxHealth = 150.0f;
     }
+
+    public void UpgradeMoveSpeed()
+    {
+        pMovement.moveSpeed = 50.0f;
+    }
+
+    public void UpgradeSonarRange()
+    {
+        sonarScan.scanRadius = 10;
+    }
+
+    public void UpgradeHullDurability()
+    {
+        hullDurability = 20.0f;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("WE HAVE BEEN HIT");
+            hullCurrentHealth -= 25;
+        }
+    }
+
+    void OnRepair()
+    {
+        Debug.Log("Repairing");
+        float repairTime = hullMaxHealth / (hullCurrentHealth * 1.5f);
+        StartCoroutine(Repair(repairTime));
+    }
+
+    public IEnumerator Repair(float repairTime)
+    {
+        yield return new WaitForSeconds(repairTime);
+        Debug.Log("Repaired");
+        hullCurrentHealth = hullMaxHealth;
+    }
+
 }

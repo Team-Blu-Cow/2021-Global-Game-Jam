@@ -11,10 +11,11 @@ public class PlayerLight : MonoBehaviour
     public float range = 2.5f;
 
     [Header ("Light variables")]
-    public float delayOn = 0.5f;
     public float deadZone = 0.0f;
 
-    bool lightOn;
+    private float delayOn = 0.5f;
+
+    bool lightOn = false;
     float time;
 
     private MasterInput controls;
@@ -28,10 +29,12 @@ public class PlayerLight : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        time = onDuration;
         controls = new MasterInput();
         controls.PlayerControls.Light.started += ctx => LightOn();
         controls.PlayerControls.Light.canceled += ctx => LightOff();
-        controls.PlayerControls.MousePos.performed += ctx => Aim(ctx.ReadValue<Vector2>(), ControlType.MOUSE);
+        controls.PlayerControls.MousePos.performed += ctx => AimMouse(ctx.ReadValue<Vector2>());//Aim(ctx.ReadValue<Vector2>(), ControlType.MOUSE);
+        controls.PlayerControls.CursorMove.performed += ctx => AimJoystick(ctx.ReadValue<Vector2>());
     }
 
     public void OnEnable()
@@ -93,7 +96,7 @@ public class PlayerLight : MonoBehaviour
     {
         if (dir.x > deadZone || dir.y > deadZone || dir.x < -deadZone || dir.y < -deadZone)
         {
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.x, -dir.y) * Mathf.Rad2Deg);
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg);
         }
     }
 
