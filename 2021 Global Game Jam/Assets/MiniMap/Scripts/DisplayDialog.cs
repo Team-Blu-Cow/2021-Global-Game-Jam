@@ -11,6 +11,9 @@ public class DisplayDialog : MonoBehaviour
     Queue<string> sentances;
     Queue<float> delays;
 
+    bool typing = false;
+    string currentSentance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +25,9 @@ public class DisplayDialog : MonoBehaviour
     private void Awake()
     {
         controls = new MasterInput();
-        controls.PlayerControls.Dialogue.performed += ctx => DisplayNextSentace();
+        controls.PlayerControls.Dialogue.performed += ctx => DialougeSkip();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnEnable()
     {
         controls.Enable();
@@ -56,10 +54,10 @@ public class DisplayDialog : MonoBehaviour
             delays.Enqueue(delay);
         }
 
-        DisplayNextSentace();
+        DisplayNextSentance();
     }
 
-    public void DisplayNextSentace()
+    void DisplayNextSentance()
     {
         if (sentances.Count == 0)
         {
@@ -67,8 +65,23 @@ public class DisplayDialog : MonoBehaviour
         }
         else
         {
+            currentSentance = sentances.Dequeue();
             StopAllCoroutines();
-            StartCoroutine(TypeSentance(sentances.Dequeue(), delays.Dequeue()));
+            StartCoroutine(TypeSentance(currentSentance, delays.Dequeue()));
+        }
+    }
+
+    void DialougeSkip()
+    {
+        if (typing)
+        {
+            StopAllCoroutines();
+            tmp.text = currentSentance;
+            typing = false;
+        }
+        else
+        {
+            DisplayNextSentance();
         }
     }
 
@@ -77,13 +90,14 @@ public class DisplayDialog : MonoBehaviour
         LeanTween.move(gameObject, new Vector3(transform.position.x, -490, 0), 1);
     }
 
-    public IEnumerator TypeSentance(string sentance, float delay)
+    IEnumerator TypeSentance(string sentance, float delay)
     {
+        typing = true;
         tmp.text = "";
         foreach(char letter in sentance.ToCharArray())
         {
             tmp.text += letter;
             yield return new WaitForSeconds(delay);
-        }     
+        }
     }
 }
