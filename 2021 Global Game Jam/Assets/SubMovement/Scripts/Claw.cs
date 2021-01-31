@@ -10,14 +10,9 @@ public class Claw : MonoBehaviour
     public GameObject sub;
     public Transform pickupPos;
 
-    private PlayerStats pStats;
-    private PlayerMovement pMovement;
-
     // Start is called before the first frame update
     void Start()
     {
-        pStats = sub.GetComponent<PlayerStats>();
-        pMovement = sub.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -28,35 +23,7 @@ public class Claw : MonoBehaviour
 
         if(triggeringWithUpgrade == true && triggeringUpgrade)
         {
-            triggeringUpgrade.GetComponent<Rigidbody2D>().position = pickupPos.position;
-
-            TreasureControl treasureType = triggeringUpgrade.GetComponent<TreasureControl>();
-
-            switch (treasureType.reward)
-            {
-                case PlayerUpgrades.Upgrades.torchRange:
-                    pStats.UpgradeTorchRange();
-                    break;
-                case PlayerUpgrades.Upgrades.torchDuraion:
-                    pStats.UpgradeTorchDuration();
-                    break;
-                case PlayerUpgrades.Upgrades.sonarRange:
-                    pStats.UpgradeSonarRange();
-                    break;
-                case PlayerUpgrades.Upgrades.sonarSpeed:
-                    break;
-                case PlayerUpgrades.Upgrades.hullDuribilty:
-                    pStats.UpgradeHullDurability();
-                    break;
-                case PlayerUpgrades.Upgrades.hullHealth:
-                    pStats.UpgradeHullHealth();
-                    break;
-                case PlayerUpgrades.Upgrades.moveSpdMod:
-                    pStats.UpgradeMoveSpeed();
-                    break;
-                default:
-                    break;
-            }
+            triggeringUpgrade.GetComponent<Rigidbody2D>().position = pickupPos.position;            
         }
     }
 
