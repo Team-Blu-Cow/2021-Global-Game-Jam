@@ -143,6 +143,10 @@ public class PlayerStats : MonoBehaviour
         {
             Debug.Log("WE HAVE BEEN HIT");
             hullCurrentHealth -= 25;
+            if (hullCurrentHealth <= 0)
+            {
+                GameObject.Find("LevelLoader").GetComponent<LevelLoader>().SwitchScene("Game Over");
+            }
         }
         else if (collision.gameObject.tag == "Treasure")
         {
