@@ -9,11 +9,13 @@ public class DisplayDialog : MonoBehaviour
 
     TextMeshProUGUI tmp;
     Queue<string> sentances;
+    Queue<float> delays;
 
     // Start is called before the first frame update
     void Start()
     {
         sentances = new Queue<string>();
+        delays = new Queue<float>();
         tmp = GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -38,7 +40,7 @@ public class DisplayDialog : MonoBehaviour
         controls.Disable();
     }
 
-    public void StartDialog(string[] customDialog)
+    public void StartDialog(string[] customDialog, float[] textDelay)
     {
         sentances.Clear();
 
@@ -47,6 +49,11 @@ public class DisplayDialog : MonoBehaviour
         foreach(string sentance in customDialog)
         {
             sentances.Enqueue(sentance);
+        }
+        
+        foreach(float delay in textDelay)
+        {
+            delays.Enqueue(delay);
         }
 
         DisplayNextSentace();
@@ -61,7 +68,7 @@ public class DisplayDialog : MonoBehaviour
         else
         {
             StopAllCoroutines();
-            StartCoroutine(TypeSentance(sentances.Dequeue(), 0.1f));
+            StartCoroutine(TypeSentance(sentances.Dequeue(), delays.Dequeue()));
         }
     }
 

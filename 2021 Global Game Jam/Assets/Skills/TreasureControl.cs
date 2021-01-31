@@ -17,6 +17,7 @@ public class TreasureControl : MonoBehaviour
     public DisplayDialog displayText;
     [TextArea(3,10)]
     public string[] customDialog;
+    public float[] textDelay;
 
     float timer = 1;
 
@@ -39,7 +40,7 @@ public class TreasureControl : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (displayText)
-                displayText.StartDialog(customDialog);
+                displayText.StartDialog(customDialog, textDelay);
 
             foreach (GameObject obj in ping)
             {
