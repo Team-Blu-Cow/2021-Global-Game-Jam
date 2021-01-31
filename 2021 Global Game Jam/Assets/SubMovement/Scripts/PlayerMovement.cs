@@ -13,9 +13,11 @@ public class PlayerMovement : MonoBehaviour
     public MasterInput controls;
     public CursorController cursorObject;
     public Transform clawTarget;
+    public Transform claw_effector;
 
     Vector2 movement;
     Vector2 drag;
+    float iteration = 0.0f;
 
     public bool clawMode = false;
 
@@ -35,6 +37,22 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         controls.Disable();
+    }
+
+    void Update()
+    {
+
+        if (!clawMode)
+        {
+            
+            clawTarget.localPosition = Vector3.Lerp( clawTarget.localPosition,new Vector3(-1.7f, -5.5f, 0), iteration);
+            iteration += 0.0001f;
+        }
+        else
+        {
+            iteration = 0.0f;
+        }
+        
     }
 
     void FixedUpdate()
@@ -67,10 +85,6 @@ public class PlayerMovement : MonoBehaviour
 
         clawMode = !clawMode;
 
-        cursorObject.SetRender(clawMode);
-        if (!clawMode)
-        {
-            clawTarget.localPosition = new Vector3(-1.7f,-5.5f,0);            
-        }
+        cursorObject.SetRender(clawMode);       
     }
 }
