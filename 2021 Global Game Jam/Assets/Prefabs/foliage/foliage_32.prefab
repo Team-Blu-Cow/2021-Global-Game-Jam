@@ -9,7 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 318010935003155462, guid: 232a89ac8cebe414388a8980f4f2f17a, type: 3}
       propertyPath: m_Name
-      value: _FoiliageTemplate
+      value: foliage_32
+      objectReference: {fileID: 0}
+    - target: {fileID: 2605593951519447577, guid: 232a89ac8cebe414388a8980f4f2f17a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4da34cbf85d792b4a8e6f33bdac57223, type: 3}
+    - target: {fileID: 4868321563656172022, guid: 232a89ac8cebe414388a8980f4f2f17a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868321563656172022, guid: 232a89ac8cebe414388a8980f4f2f17a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 6.04
       objectReference: {fileID: 0}
     - target: {fileID: 7398031989955367964, guid: 232a89ac8cebe414388a8980f4f2f17a, type: 3}
       propertyPath: m_RootOrder
