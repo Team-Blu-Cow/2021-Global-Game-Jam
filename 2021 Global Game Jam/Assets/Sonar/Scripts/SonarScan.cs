@@ -71,6 +71,12 @@ public class SonarScan : MonoBehaviour
 
             Instantiate(particleSystem, transform.position, transform.rotation, transform); // create a new partcle for the scan
 
+
+            // on sonar ping alert monster
+            GameObject monsterController = GameObject.Find("Monster Controller");
+            monsterController.GetComponent<MonsterPathfinderControlScript>().InvestigatePosition(transform.position); // <-- player position
+
+
             ///// Can use transform position here o tell monster where the scan took place///////////
         }
     }

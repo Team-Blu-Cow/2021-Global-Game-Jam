@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
     public GameObject sonarSystem;
     private SonarScan sonarScan;
 
+    public minimap.MaskComputeShaderObject csObject;
     public GameObject sub_shield;
     private SpriteRenderer shieldTexture;
 
@@ -112,6 +113,28 @@ public class PlayerStats : MonoBehaviour
     public void UpgradeHullDurability()
     {
         hullDurability = 20.0f;
+    }
+
+    public void UnlockMapArea(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                csObject.zone1Flag = true;
+                break;
+            case 2:
+                csObject.zone2Flag = true;
+                break;
+            case 3:
+                csObject.zone3Flag = true;
+                break;
+            case 4:
+                csObject.zone4Flag = true;
+                break;
+        }
+
+        csObject.CreateNewTexture();
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

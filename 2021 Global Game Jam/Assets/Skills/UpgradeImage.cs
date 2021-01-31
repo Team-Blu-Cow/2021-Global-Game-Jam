@@ -6,7 +6,7 @@ using UnityEngine;
 public class UpgradeImage : MonoBehaviour
 {
     public GameObject player;
-    public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchRange;
+    public PlayerUpgrades.Upgrades reward = PlayerUpgrades.Upgrades.torchUpgrade;
 
     // Start is called before the first frame update
     void Start()

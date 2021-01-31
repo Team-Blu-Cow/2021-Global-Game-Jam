@@ -5,14 +5,6 @@ using UnityEngine.UI;
 
 namespace minimap
 {
-    struct ZoneFlags
-    {
-        bool flag1;
-        bool flag2;
-        bool flag3;
-        bool flag4;
-    }
-
 
     public class MaskComputeShaderObject : MonoBehaviour
     {
@@ -63,7 +55,7 @@ namespace minimap
             maskImage.sprite = textureSprite;
         }
 
-        public Texture2D toTexture2D(RenderTexture rTex)
+        private Texture2D toTexture2D(RenderTexture rTex)
         {
             Texture2D dest = new Texture2D(rTex.width, rTex.height, TextureFormat.RGBA32, false);
             dest.Apply(false);
