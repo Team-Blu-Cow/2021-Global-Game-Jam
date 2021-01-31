@@ -300,10 +300,13 @@ public class MonsterPathfinderControlScript : MonoBehaviour
 
     public void InvestigatePosition(Vector2 pos)
     {
-        state = AIstate.investigate;
-        investigatePosition.x = pos.x;
-        investigatePosition.y = pos.y;
-        return;
+        if (state != AIstate.sleeping)
+        {
+            state = AIstate.investigate;
+            investigatePosition.x = pos.x;
+            investigatePosition.y = pos.y;
+            return;
+        }
     }
 
     public void inc_foliage_count()

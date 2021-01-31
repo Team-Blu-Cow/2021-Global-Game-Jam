@@ -28,7 +28,7 @@ public class IKManager : MonoBehaviour
     {
         controls = new MasterInput();
         //controls.PlayerControls.MousePos.performed += ctx => TargetMouse(ctx.ReadValue<Vector2>());
-        controls.PlayerControls.Claw.started += ctx => EnableClawMode();
+        //controls.PlayerControls.Claw.started += ctx => EnableClawMode();
     }
 
     private void OnEnable()

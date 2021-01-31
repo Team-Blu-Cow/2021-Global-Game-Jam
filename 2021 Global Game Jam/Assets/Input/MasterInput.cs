@@ -59,14 +59,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Claw"",
-                    ""type"": ""Button"",
-                    ""id"": ""8afa5485-17b3-42a2-9614-69da24f3c381"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Dialogue"",
                     ""type"": ""Button"",
                     ""id"": ""2b0c4088-edc2-4f07-a389-eebbd3a40395"",
@@ -172,7 +164,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cd179fe3-9128-4c66-ae35-0c7d7770080a"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard+Mouse"",
@@ -194,7 +186,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""59f1e95a-7989-41e6-b873-d254f579606d"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard+Mouse"",
@@ -243,28 +235,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dfa8b0bb-c3be-4c0c-be1c-a6d97ca684b1"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard+Mouse"",
-                    ""action"": ""Claw"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""898e9543-4d8d-4955-8b71-988f67400794"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Claw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -576,7 +546,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
         m_PlayerControls_Light = m_PlayerControls.FindAction("Light", throwIfNotFound: true);
         m_PlayerControls_MousePos = m_PlayerControls.FindAction("MousePos", throwIfNotFound: true);
         m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
-        m_PlayerControls_Claw = m_PlayerControls.FindAction("Claw", throwIfNotFound: true);
         m_PlayerControls_Dialogue = m_PlayerControls.FindAction("Dialogue", throwIfNotFound: true);
         m_PlayerControls_CursorMove = m_PlayerControls.FindAction("CursorMove", throwIfNotFound: true);
         m_PlayerControls_Repair = m_PlayerControls.FindAction("Repair", throwIfNotFound: true);
@@ -641,7 +610,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Light;
     private readonly InputAction m_PlayerControls_MousePos;
     private readonly InputAction m_PlayerControls_Pause;
-    private readonly InputAction m_PlayerControls_Claw;
     private readonly InputAction m_PlayerControls_Dialogue;
     private readonly InputAction m_PlayerControls_CursorMove;
     private readonly InputAction m_PlayerControls_Repair;
@@ -654,7 +622,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
         public InputAction @Light => m_Wrapper.m_PlayerControls_Light;
         public InputAction @MousePos => m_Wrapper.m_PlayerControls_MousePos;
         public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
-        public InputAction @Claw => m_Wrapper.m_PlayerControls_Claw;
         public InputAction @Dialogue => m_Wrapper.m_PlayerControls_Dialogue;
         public InputAction @CursorMove => m_Wrapper.m_PlayerControls_CursorMove;
         public InputAction @Repair => m_Wrapper.m_PlayerControls_Repair;
@@ -682,9 +649,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
-                @Claw.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnClaw;
-                @Claw.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnClaw;
-                @Claw.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnClaw;
                 @Dialogue.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDialogue;
                 @Dialogue.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDialogue;
                 @Dialogue.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDialogue;
@@ -713,9 +677,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @Claw.started += instance.OnClaw;
-                @Claw.performed += instance.OnClaw;
-                @Claw.canceled += instance.OnClaw;
                 @Dialogue.started += instance.OnDialogue;
                 @Dialogue.performed += instance.OnDialogue;
                 @Dialogue.canceled += instance.OnDialogue;
@@ -819,7 +780,6 @@ public class @MasterInput : IInputActionCollection, IDisposable
         void OnLight(InputAction.CallbackContext context);
         void OnMousePos(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnClaw(InputAction.CallbackContext context);
         void OnDialogue(InputAction.CallbackContext context);
         void OnCursorMove(InputAction.CallbackContext context);
         void OnRepair(InputAction.CallbackContext context);
