@@ -15,6 +15,7 @@ public class TreasureControl : MonoBehaviour
 
     [Header("Dialog")]
     public DisplayDialog displayText;
+
     [TextArea(3,10)]
     public string[] customDialog;
     public float[] textDelay;

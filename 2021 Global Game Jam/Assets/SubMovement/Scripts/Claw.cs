@@ -26,7 +26,7 @@ public class Claw : MonoBehaviour
             triggeringUpgrade.GetComponent<Rigidbody2D>().position = pickupPos.position;            
         }
     }
-
+    
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Treasure"))

@@ -81,6 +81,14 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Integer"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Claw"",
+                    ""type"": ""Button"",
+                    ""id"": ""821394fb-daf9-4287-b4c8-92c40eeb414c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -312,6 +320,17 @@ public class @MasterInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Repair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2168560-e4f9-46ec-b9ef-9b9014992bc6"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Claw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -549,6 +568,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         m_PlayerControls_Dialogue = m_PlayerControls.FindAction("Dialogue", throwIfNotFound: true);
         m_PlayerControls_CursorMove = m_PlayerControls.FindAction("CursorMove", throwIfNotFound: true);
         m_PlayerControls_Repair = m_PlayerControls.FindAction("Repair", throwIfNotFound: true);
+        m_PlayerControls_Claw = m_PlayerControls.FindAction("Claw", throwIfNotFound: true);
         // MenuNavigation
         m_MenuNavigation = asset.FindActionMap("MenuNavigation", throwIfNotFound: true);
         m_MenuNavigation_Select = m_MenuNavigation.FindAction("Select", throwIfNotFound: true);
@@ -613,6 +633,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Dialogue;
     private readonly InputAction m_PlayerControls_CursorMove;
     private readonly InputAction m_PlayerControls_Repair;
+    private readonly InputAction m_PlayerControls_Claw;
     public struct PlayerControlsActions
     {
         private @MasterInput m_Wrapper;
@@ -625,6 +646,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         public InputAction @Dialogue => m_Wrapper.m_PlayerControls_Dialogue;
         public InputAction @CursorMove => m_Wrapper.m_PlayerControls_CursorMove;
         public InputAction @Repair => m_Wrapper.m_PlayerControls_Repair;
+        public InputAction @Claw => m_Wrapper.m_PlayerControls_Claw;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -658,6 +680,9 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Repair.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRepair;
                 @Repair.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRepair;
                 @Repair.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRepair;
+                @Claw.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnClaw;
+                @Claw.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnClaw;
+                @Claw.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnClaw;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -686,6 +711,9 @@ public class @MasterInput : IInputActionCollection, IDisposable
                 @Repair.started += instance.OnRepair;
                 @Repair.performed += instance.OnRepair;
                 @Repair.canceled += instance.OnRepair;
+                @Claw.started += instance.OnClaw;
+                @Claw.performed += instance.OnClaw;
+                @Claw.canceled += instance.OnClaw;
             }
         }
     }
@@ -783,6 +811,7 @@ public class @MasterInput : IInputActionCollection, IDisposable
         void OnDialogue(InputAction.CallbackContext context);
         void OnCursorMove(InputAction.CallbackContext context);
         void OnRepair(InputAction.CallbackContext context);
+        void OnClaw(InputAction.CallbackContext context);
     }
     public interface IMenuNavigationActions
     {
