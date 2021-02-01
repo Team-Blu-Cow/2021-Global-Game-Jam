@@ -8,7 +8,7 @@ public class PlayerLight : MonoBehaviour
 {
     [Header ("Skill variables")]
     public float onDuration = 5;
-    public float range = 2.5f;
+    public float angle = 25;
 
     [Header ("Light variables")]
     public float deadZone = 0.0f;
@@ -20,21 +20,19 @@ public class PlayerLight : MonoBehaviour
 
     private MasterInput controls;
 
-    private enum ControlType
-    {
-        MOUSE,
-        JOYSTICK
-    }
-
     // Start is called before the first frame update
     void Awake()
-    {
-        time = onDuration;
+    {       
         controls = new MasterInput();
         controls.PlayerControls.Light.started += ctx => LightOn();
         controls.PlayerControls.Light.canceled += ctx => LightOff();
-        controls.PlayerControls.MousePos.performed += ctx => AimMouse(ctx.ReadValue<Vector2>());//Aim(ctx.ReadValue<Vector2>(), ControlType.MOUSE);
+        controls.PlayerControls.MousePos.performed += ctx => AimMouse(ctx.ReadValue<Vector2>());
         controls.PlayerControls.CursorMove.performed += ctx => AimJoystick(ctx.ReadValue<Vector2>());
+    }
+    private void Start()
+    {
+        time = onDuration;
+        GetComponent<Light2D>().pointLightOuterAngle = angle;
     }
 
     public void OnEnable()
@@ -67,29 +65,12 @@ public class PlayerLight : MonoBehaviour
         {
             delayOn += Time.deltaTime;
         }
-
-        if (light.pointLightOuterRadius != range)
-        {
-            light.pointLightOuterRadius = range;
-        }
     }
 
-    void Aim(Vector2 dir, ControlType c_type = ControlType.JOYSTICK)
+    public void UpgradeLight(float angle, float duration)
     {
-        switch (c_type)
-        {
-            case ControlType.JOYSTICK:
-                AimJoystick(dir);
-                break;
-
-            case ControlType.MOUSE:
-                AimMouse(dir);
-                break;
-
-            default:
-                transform.rotation = new Quaternion(0, 0, 0, 1);
-                break;
-        }
+        GetComponent<Light2D>().pointLightOuterAngle = angle;
+        onDuration = duration;
     }
 
     void AimJoystick(Vector2 dir)

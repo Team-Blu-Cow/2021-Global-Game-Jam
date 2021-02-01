@@ -54,6 +54,11 @@ public class DisplayDialog : MonoBehaviour
             delays.Enqueue(delay);
         }
 
+        while (delays.Count < sentances.Count)
+        {
+            delays.Enqueue(textDelay[0]);
+        }
+
         DisplayNextSentance();
     }
 
@@ -99,5 +104,6 @@ public class DisplayDialog : MonoBehaviour
             tmp.text += letter;
             yield return new WaitForSeconds(delay);
         }
+        typing = false;
     }
 }

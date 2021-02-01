@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         controls = new MasterInput();
         controls.PlayerControls.Move.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
         controls.PlayerControls.Move.canceled += ctx => OnStopMove(ctx.ReadValue<Vector2>());
-        //controls.PlayerControls.Claw.started += ctx => OnEnteringClawMode();
+        controls.PlayerControls.Claw.started += ctx => OnEnteringClawMode();
     }
 
     private void OnEnable()

@@ -68,6 +68,14 @@
                     "expectedControlType": "Integer",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Claw",
+                    "type": "Button",
+                    "id": "821394fb-daf9-4287-b4c8-92c40eeb414c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -299,6 +307,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Repair",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2168560-e4f9-46ec-b9ef-9b9014992bc6",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Claw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

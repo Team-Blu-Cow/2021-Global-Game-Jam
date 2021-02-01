@@ -5,59 +5,25 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerStats : MonoBehaviour
 {
+    [Header("Lights")]
+    public GameObject lightUpgrade;
 
-    public float torchRange;
-    public float torchDuration;
-    public int sonarRange;
-    public float sonarSpeed;
-    public float hullDurability;
+    [Header("Scan")]
+    public GameObject sonarUpgrade;
+
+    [Header("Hull")]
+    public GameObject sub_shield;
     public float hullMaxHealth;
     public float hullCurrentHealth;
-    public float moveSpeed;
 
-    private PlayerMovement pMovement;
-
-    public Light2D pLight;
-    private PlayerLight playerLight;
-
-    private SonarScan sonarScan;
-
+    [Header("Misc")]
     public minimap.MaskComputeShaderObject csObject;
-    public GameObject sub_shield;
-    private SpriteRenderer shieldTexture;
-
-    public GameObject lightUpgrade;
-    private Light2D backLight;
-    private SpriteRenderer lightTexture;
-
-    public GameObject sonarUpgrade;
-    private SpriteRenderer sonarTexture;
-
     public MasterInput controls;
-
 
     private void Awake()
     {
         controls = new MasterInput();
         controls.PlayerControls.Repair.started += ctx => OnRepair();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        hullMaxHealth = 100.0f;
-        hullCurrentHealth = 100.0f;
-        hullDurability = 10.0f;
-        pMovement = GetComponent<PlayerMovement>();   
-
-        playerLight = pLight.GetComponent<PlayerLight>();
-        sonarScan = GetComponentInChildren<SonarScan>();
-
-        backLight = lightUpgrade.GetComponentInChildren<Light2D>();
-
-        lightTexture = lightUpgrade.GetComponentInChildren<SpriteRenderer>();
-        shieldTexture = sub_shield.GetComponent<SpriteRenderer>();
-        sonarTexture = sonarUpgrade.GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -70,39 +36,33 @@ public class PlayerStats : MonoBehaviour
         controls.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        torchRange = playerLight.range;
-        torchDuration = playerLight.onDuration;
-        moveSpeed = pMovement.moveSpeed;
-        sonarRange = sonarScan.scanRadius;
-    }
-
     public void UpgradeTorch()
     {
-        backLight.enabled = true;
-        lightTexture.enabled = true;
-        playerLight.range = 4.5f;
-        playerLight.onDuration = 10.0f;
+        lightUpgrade.GetComponentInChildren<Light2D>().enabled = true;
+        lightUpgrade.GetComponentInChildren<SpriteRenderer>().enabled = true;
+        
+        foreach (PlayerLight light in GetComponentsInChildren<PlayerLight>())
+        {
+            light.UpgradeLight(50, 10);
+        }
     }
 
     public void UpgradeHullHealth()
-    {        
-        shieldTexture.enabled = true;
+    {
+        sub_shield.GetComponent<SpriteRenderer>().enabled = true;
         hullCurrentHealth += 50.0f;
         hullMaxHealth = 150.0f;
     }
 
     public void UpgradeMoveSpeed()
     {
-        pMovement.moveSpeed = 50.0f;
+        GetComponent<PlayerMovement>().moveSpeed = 50.0f;
     }
 
     public void UpgradeSonarRange()
     {
-        sonarTexture.enabled = true;
-        sonarScan.scanRadius = 10;
+        sonarUpgrade.GetComponentInChildren<SpriteRenderer>().enabled = true;
+        GetComponentInChildren<SonarScan>().scanRadius = 10;
     }
 
     public void UnlockMapArea(int index)
